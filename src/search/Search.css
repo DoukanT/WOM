@@ -3,11 +3,13 @@
     padding: 0;
 }
 
-form {
+.search {
+    color: white;
+    padding-top: 70px;
     display: flex;
     flex-direction: column;
 }
 
-form label {
+.search label {
     padding-top: 1rem;
 }

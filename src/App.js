@@ -8,9 +8,7 @@ import SearchPage from "./pages/SearchPage"
 import Login from"./pages/loginForm"
 import Register from"./pages/registerForm"
 import Forget from"./pages/forgetForm"
-
-
-
+import Search from"./search/Search"
 
 function App() {
   return (
@@ -25,6 +23,7 @@ function App() {
       <Route path='/login' element = {<Login />} />
       <Route path='/register' element = {<Register />} />
       <Route path='/forget' element = {<Forget />} />
+      <Route path='/search' element = {<Search />} />
 
     </Routes>
     </>
