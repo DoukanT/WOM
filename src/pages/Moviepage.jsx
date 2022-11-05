@@ -1,13 +1,24 @@
-import React from 'react'
 import requests from '../Requests'
-import Row from '../components/Row';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import "./Moviepage.css"
+import { useLocation } from 'react-router-dom';
+import Main from '../components/Main';
+
 
 
 const Moviepage = () => {
+  const data = useLocation();
+  const movieID= data.state.id;
+  const requestMovie= 'https://api.themoviedb.org/3/movie/${data.state.id}?api_key=${Requests.key}&language=en-US'
+  
+
   return (
     <>
-    <div>merajspdjapl</div>
-      <Row rowID='1' title='Popular' fetchURL={requests.requestPopular} />
+      <div class='pt-20'>
+        
+        <Main movieID={movieID}/>
+      </div>
     </>
   )
 }

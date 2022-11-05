@@ -24,27 +24,7 @@ const Navbar = () => {
     }
   }, [])
   return (
-    /*<div className='flex items-center justify-between p-4 z-[100] w-full absolute'>
-      <img src={Logo} alt=''/>
-
-        <h1 className='text-red-600 text-4xl font-bold cursor-pointer'>
-          WOM
-        </h1>
-        <div>
-            <button className='text-white pr-4'>Account</button>
-            <button className='bg-red-600 px-6 py-2 rounded cursor-pointer text-white'>
-                Logout
-            </button>
-        </div>
-        <div>
-            <button className='text-white pr-4'>Sign In</button>
-            <button className='bg-red-600 px-6 py-2 rounded cursor-pointer text-white'>
-              Sign Up
-            </button>
-        </div>
-    </div>
-  )
-}*/
+    
 <header className={`${isScrolled && 'bg-[#141414]'}`}>
         <div className='flex items-center space-x-2 md:space-x-10'>
         <img

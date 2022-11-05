@@ -1,18 +1,17 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react'
-import requests from '../Requests'
+import requests from '../Requests';
 import axios from 'axios';
-const Main = () => {
-    const [movies, setMovies] = useState([]);
-
-  const movie = movies[Math.floor(Math.random() * movies.length)];
+const Main = (movieID) => {
+    const [movie, setMovies] = useState([]);
+    const requestMovie="https://api.themoviedb.org/3/movie/"+movieID.movieID+"?api_key="+requests.key+"&language=en-US"
 
   useEffect(() => {
-    axios.get(requests.requestPopular).then((response) => {
-      setMovies(response.data.results);
-    });
-  }, []);
+    axios.get(requestMovie).then((response) => {
+      setMovies(response.data);
+    });}, []);
+
 
   const truncateString = (str, num) => {
     if (str?.length > num) {
@@ -44,7 +43,7 @@ const Main = () => {
             Released: {movie?.release_date}
           </p>
           <p className='w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-gray-200'>
-            {truncateString(movie?.overview, 150)}
+            {truncateString(movie?.overview)}
           </p>
         </div>
       </div>
