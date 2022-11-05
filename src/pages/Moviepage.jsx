@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import "./Moviepage.css"
 import { useLocation } from 'react-router-dom';
-import Main from '../components/Main';
+import Main from '../components/MovieInfo';
 
 
 
