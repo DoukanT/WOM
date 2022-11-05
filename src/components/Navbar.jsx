@@ -30,7 +30,7 @@ const Navbar = () => {
         <img
           alt="the world of movie"
           src={Logo}
-  	      width='200px'
+          width='200px'
           height='auto'
           className="cursor-pointer object-contain"
         />
@@ -52,10 +52,10 @@ const Navbar = () => {
     </div>
       <div>
         <MagnifyingGlassIcon className=" hidden h-8 w-8 text-pink-500 sm:inline"/> 
-        <button className='text-white p-4'>Sign In</button>
-        <button className='bg-pink-500 px-6 py-2 rounded cursor-pointer text-white'>
+        <Link to="/login"><button className='text-white p-4'>Sign In</button></Link>
+        <Link to="/register"><button className='bg-pink-500 px-6 py-2 rounded cursor-pointer text-white'>
         Sign Up
-        </button>
+        </button></Link>
       </div>
     </header>
   )
