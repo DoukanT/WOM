@@ -3,10 +3,21 @@ import Logo from '../logo.png'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { useEffect } from 'react';
 import { useState } from 'react'
+<<<<<<< Updated upstream
 import { Link } from 'react-router-dom';
 import "./Navbar.css"
+=======
+import { useDispatch } from 'react-redux';
+import { logOut } from '../redux/authSlice';
+>>>>>>> Stashed changes
 
 const Navbar = () => {
+  const dispatch = useDispatch() //serkan
+
+  const handleLogOut =() =>{
+    dispatch(logOut())
+  }
+
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
@@ -66,10 +77,20 @@ const Navbar = () => {
           </form>
           <MagnifyingGlassIcon onClick={()=>handletab(1)} className={searchbar===1 ? "hidden" : "h-8 w-8 text-pink-500 cursor-pointer sm:inline"}/> 
 
+<<<<<<< Updated upstream
           <Link to="/login"><button className='text-white p-4'>Sign In</button></Link>
           <Link to="/register"><button className='bg-pink-500 px-6 py-2 rounded cursor-pointer text-white'>
           Sign Up
           </button></Link>
+=======
+    </div>
+      <div>
+        <MagnifyingGlassIcon className=" hidden h-8 w-8 text-pink-500 sm:inline"/> 
+        <button onClick={handleLogOut} className='text-white p-4'>CIKIS</button>
+        <button className='bg-pink-500 px-6 py-2 rounded cursor-pointer text-white'>
+        Sign Up
+        </button>
+>>>>>>> Stashed changes
       </div>
     </header>
   )
