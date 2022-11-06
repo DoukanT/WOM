@@ -1,32 +1,21 @@
+import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Homepage from "./pages/Homepage";
 // import UserListPage from "./pages/UserListPage"
+import SearchPage from "./pages/SearchPage"
 // import LaterPage from "./pages/LaterPage"
 // import RecommendationPage from "./pages/RecommendationPage"
-<<<<<<< Updated upstream
 import Login from"./pages/loginForm"
 import Register from"./pages/registerForm"
 import Forget from"./pages/forgetForm"
 import Search from"./search/Search"
 import Moviepage from"./pages/Moviepage"
-=======
-import {Provider} from "react-redux";
-import {store} from "./redux";
-import  Router from "./config/Router";
-
-
-
-
->>>>>>> Stashed changes
 
 
 function App() {
   return (
-    
-    <Provider store ={store}>
     <>
-    <Router/>
     <Navbar />
-<<<<<<< Updated upstream
     <Routes>
       <Route path='/' exact element={<Homepage />} />
       {/* <Route path='/RecommendationPage' element={<RecommendationPage />} />
@@ -41,12 +30,8 @@ function App() {
 
 
     </Routes>
-=======
-    
->>>>>>> Stashed changes
     </>
- </Provider> );
+  );
 }
 
 export default App;
-
