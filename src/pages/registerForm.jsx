@@ -16,12 +16,15 @@ const registerForm = () => {
                 <label>Username</label>
                 <input type="text" placeholder="Enter Username" />
 
+                <label>E-mail</label>
+                <input type="e-mail" placeholder="Enter E-mail Adress" />
+
                 <label>Password</label>
                 <input type="password" placeholder="Enter Password" />
 
-                <label>Security Question</label>
+                <label>Secret Answer</label>
                 <select className="select"> 
-                    <option disabled selected value="w-error" style={{ color:"grey"}}>--Select One Question--</option>
+                    <option disabled selected value="w-error" style={{ color:"grey"}}  >--Select One Question--</option>
                     <option value="w-food">What is your favorite food?</option>
                     <option value="w-teacher">Who is your favorite teacher at high school?</option>
                     <option value="w-pet">What is your first pet's name?</option>
@@ -29,7 +32,7 @@ const registerForm = () => {
                     <option value="w-nickname">What was/is your nickname?</option>
                     <option value="w-family">What is your family nickname?</option>
                 </select>
-                <input type="secret" placeholder="Enter Security Answer" />
+                <input type="secret" placeholder="Enter Secret Answer" />
 
                 <input type="submit" value="Register" />
 
