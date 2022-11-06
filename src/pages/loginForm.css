@@ -47,7 +47,7 @@ body {
     margin-bottom: 20px;
 }
 
-.login-box input[type="e-mail"], 
+.login-box input[type="text"], 
 .login-box input[type="password"] {
     border: none;
     border-bottom: 1px solid #d32c95;
