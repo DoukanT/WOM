@@ -13,10 +13,10 @@ const forgetForm = () => {
                 
                 <label>Username</label>
                 <input type="text" placeholder="Enter Username" />
-                <label>Secret Code</label>
-                <input type="text" placeholder="Enter Secret Code" />
+                {/* <label>Security Answer</label>
+                <input type="text" placeholder="Enter Secret Code" /> */}
 
-                <input type="submit" value="Log in" />
+                <input type="submit" value="Next" />
 
                 <Link to="/login" className="link"> Back to login </Link><br/>
                 <Link to="/register" className="link"> Don't have an account? </Link>
