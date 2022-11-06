@@ -3,16 +3,18 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    height: 100vh;
 }
 
-.register-box {
-    width: 320px;
-    height: 520px;
-    background: #000;
+.register-box { 
+    margin-top: 100px;
+    margin-bottom: 90vh;
+    width: 360px;   
+    height: 680px;
+    background: rgba(77, 10, 68, 0.599);
     color: #fff;
     top: 50%;
     left: 50%;
+    border-radius: 30px;
     position: absolute;
     transform: translate(-50%, -50%);
     box-sizing: border-box;
@@ -47,6 +49,8 @@ body {
 }
 
 .register-box input[type="text"], 
+.register-box input[type="secret"], 
+.register-box input[type="e-mail"],
 .register-box input[type="password"] {
     border: none;
     border-bottom: 1px solid #d32c95;
@@ -62,7 +66,7 @@ body {
     outline: none;
     height: 40px;
     background: #d32c95;
-    color: #fff;
+    color: rgb(255, 255, 255);
     font-size: 18px;
     border-radius: 20px;
 }
@@ -82,4 +86,13 @@ body {
 
 .register-box .link:hover {
     color: #d32c95;
+}
+
+.select {
+    color: #d32c95;
+    width: 300px;
+    height: 33px;
+    background-color: #000;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
