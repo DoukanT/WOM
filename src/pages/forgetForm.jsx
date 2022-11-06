@@ -13,8 +13,9 @@ const forgetForm = () => {
                 
                 <label>Username</label>
                 <input type="text" placeholder="Enter Username" />
-                {/* <label>Security Answer</label>
-                <input type="text" placeholder="Enter Secret Code" /> */}
+                <label>Secret Code</label>
+                {/* burada question'u oto göstericez */}
+                <input type="text" placeholder="Enter Secret Code" />
 
                 <input type="submit" value="Next" />
 

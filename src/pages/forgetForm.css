@@ -7,8 +7,9 @@ body {
 }
 
 .forget-box {
+    margin-top: 10px;
     width: 360px;
-    height: 420px;
+    height: 500px;
     background: rgba(77, 10, 68, 0.599);
     color: #fff;
     top: 50%;
