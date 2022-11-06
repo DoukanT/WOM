@@ -10,8 +10,8 @@ const loginForm = () => {
             <h1>Login</h1>
 
             <form>
-                <label>Username</label>
-                <input type="text" placeholder="Enter Username" />
+                <label>E-mail</label>
+                <input type="e-mail" placeholder="Enter E-mail" />
 
                 <label>Password</label>
                 <input type="password" placeholder="Enter Password" />

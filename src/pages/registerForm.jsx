@@ -22,7 +22,7 @@ const registerForm = () => {
                 <label>Password</label>
                 <input type="password" placeholder="Enter Password" />
 
-                <label>Secret Answer</label>
+                <label>Security Question</label>
                 <select className="select"> 
                     <option disabled selected value="w-error" style={{ color:"grey"}}  >--Select One Question--</option>
                     <option value="w-food">What is your favorite food?</option>
@@ -32,7 +32,7 @@ const registerForm = () => {
                     <option value="w-nickname">What was/is your nickname?</option>
                     <option value="w-family">What is your family nickname?</option>
                 </select>
-                <input type="secret" placeholder="Enter Secret Answer" />
+                <input type="secret" placeholder="Enter Security Answer" />
 
                 <input type="submit" value="Register" />
 
