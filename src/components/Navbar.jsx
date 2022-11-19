@@ -5,8 +5,20 @@ import { useEffect } from 'react';
 import { useState } from 'react'
 import { Link } from 'react-router-dom';
 import "./Navbar.css"
+import requests from '../Requests';
+import axios from 'axios';
 
 const Navbar = () => {
+  const input = 'game'
+  const [movie, setMovies] = useState([]);
+    const requestMovie="https://api.themoviedb.org/3/search/movie?api_key="+requests.key+"&query="+input;
+    
+    useEffect(() => {
+      axios.get(requestMovie).then((response) => {
+        setMovies(response.data);
+      });
+    }, []);
+
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
@@ -57,11 +69,12 @@ const Navbar = () => {
       </div>
 
 
+
       <div className='flex flex-row items-center'>
           {/* buradaki action kısmını api.name ile bağlamamız lazım galiba */}
           <form action="" method="GET">
             <div onLoadStart={()=>handletab(0)} onDoubleClick={()=>handletab(0)} className={searchbar===1 ? "" :"hidden"}>
-              <input autocomplete="on" id="search-bar" type="text" placeholder="Click twice to close"/>
+              <input id="search-bar" type="text" placeholder="Click twice to close"/>
             </div>
           </form>
           <MagnifyingGlassIcon onClick={()=>handletab(1)} className={searchbar===1 ? "hidden" : "h-8 w-8 text-pink-500 cursor-pointer sm:inline"}/> 

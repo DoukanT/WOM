@@ -1,7 +1,6 @@
 import React from "react"
 import {Link} from "react-router-dom"
 import "./registerForm.css"
-import Select from 'react-select';
 import Logo from "../logo.png"
 
 
