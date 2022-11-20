@@ -1,7 +1,6 @@
 import React from 'react';
-import "./Moviepage.css"
 import { useLocation } from 'react-router-dom';
-import Main from '../components/MovieInfo';
+import Main from '../components/Main';
 
 const Moviepage = () => {
   const data = useLocation();
