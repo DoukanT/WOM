@@ -1,35 +1,27 @@
-import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Homepage from "./pages/Homepage";
-// import UserListPage from "./pages/UserListPage"
-import SearchPage from "./pages/SearchPage"
-// import LaterPage from "./pages/LaterPage"
-// import RecommendationPage from "./pages/RecommendationPage"
-import Login from"./pages/loginForm"
-import Register from"./pages/registerForm"
-import Forget from"./pages/forgetForm"
-import Search from"./search/Search"
-import Moviepage from"./pages/Moviepage"
-
+import { Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import { AuthContextProvider } from "./context/AuthContext";
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Account from './pages/Account';
+import ProtectedRoute from './components/ProtectedRoute';
+import Moviepage from"./pages/Moviepage";
 
 function App() {
   return (
     <>
+    <AuthContextProvider>
     <Navbar />
     <Routes>
-      <Route path='/' exact element={<Homepage />} />
-      {/* <Route path='/RecommendationPage' element={<RecommendationPage />} />
-      <Route path='/UserListPage' element={<UserListPage />} />
-      <Route path='/LaterPage' element={<LaterPage />} /> */}
-      <Route path='/SearchPage' element={<SearchPage />} />
-      <Route path='/login' element = {<Login />} />
-      <Route path='/register' element = {<Register />} />
-      <Route path='/forget' element = {<Forget />} />
-      <Route path='/search' element = {<Search />} />
-      <Route path='/Moviepage' element = {<Moviepage />} />
-
-
+       <Route path='/' element={<Home />} />
+       <Route path='/Login' element={<Login />} />
+        <Route path='/Signup' element={<Signup />} />
+        <Route path='/Account' element={<ProtectedRoute><Account />
+              </ProtectedRoute>} />
+        <Route path='/Moviepage' element = {<Moviepage />} />
     </Routes>
+    </AuthContextProvider>
     </>
   );
 }

@@ -3,10 +3,9 @@ import { useEffect } from 'react';
 import { useState } from 'react'
 import requests from '../Requests';
 import axios from 'axios';
-const Main = (movieID) => {
+const Main = (movieID2) => {
     const [movie, setMovies] = useState([]);
-    const requestMovie="https://api.themoviedb.org/3/movie/"+movieID.movieID+"?api_key="+requests.key+"&language=en-US"
-
+    const requestMovie="https://api.themoviedb.org/3/movie/"+movieID2.movieID2+"?api_key="+requests.key+"&language=en-US"
   useEffect(() => {
     axios.get(requestMovie).then((response) => {
       setMovies(response.data);
@@ -29,6 +28,7 @@ const Main = (movieID) => {
           className='w-full h-100% object-cover'
           src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
           alt={movie?.title}
+  
         />
         <div className='absolute w-full top-[20%] p-4 md:p-8'>
           <h1 className='text-3xl md:text-5xl font-bold'>{movie?.title}</h1>
