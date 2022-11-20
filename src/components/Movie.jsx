@@ -5,6 +5,7 @@ import { db } from '../firebase';
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
+
 const Movie = ({ item }) => {
   const [like, setLike] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -12,6 +13,7 @@ const Movie = ({ item }) => {
   const navigate = useNavigate();
 
   const movieID = doc(db, 'users', `${user?.email}`);
+ 
 
   const saveShow = async () => {
     if (user?.email) {
