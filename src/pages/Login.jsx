@@ -39,7 +39,7 @@ const Login = () => {
         <div className='bg-black/60 fixed top-0 left-0 w-full h-screen'></div>
         <div className='fixed w-full px-4 py-20 z-50'>
           <div className='max-w-[450px] h-[450px] mx-auto bg-black/75 text-white'>
-            <div className='max-w-[320px] mx-auto py-16'>
+            <div className='max-w-[320px] mx-auto py-10'>
               <h1 className='text-3xl font-bold'>Sign In</h1>
               {error ? <p className='p-3 bg-red-400 my-2'>{error}</p> : null}
               <form
@@ -63,25 +63,30 @@ const Login = () => {
                 <button className='bg-pink-500 py-3 my-6 rounded font-bold'>
                   Sign In
                 </button>
-                <div className='flex justify-between items-center text-sm text-gray-600'>
+                <div className='flex justify-between items-center text-sm text-gray-500'>
                   <p>
                     <input className='mr-2' type='checkbox' />
                     Remember me
                   </p>
-                  <p>Need Help?</p>
+                  {/* <p>Need Help?</p> */}
                 </div>
                 <p className='py-8'>
-                  <span className='text-gray-600'>
+                  <span className='text-gray-500'>
                     New to TWOM?
                   </span>{' '}
                   <Link to='/Signup'>Sign Up</Link>
+                  <br />
+                  <span className='text-gray-500'>
+                  Did you forget your password?
+                  </span>{' '}
+                  <Link to='/'>Forget</Link>
                 </p>
               </form>
             </div>
           </div>
         </div>
       </div>
-     
+    
     </>
   )
 }
