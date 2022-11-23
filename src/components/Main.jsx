@@ -4,8 +4,10 @@ import { useState } from 'react'
 import requests from '../Requests';
 import axios from 'axios';
 const Main = (movieID2) => {
+
     const [movie, setMovies] = useState([]);
     const requestMovie="https://api.themoviedb.org/3/movie/"+movieID2.movieID2+"?api_key="+requests.key+"&language=en-US"
+
   useEffect(() => {
     axios.get(requestMovie).then((response) => {
       setMovies(response.data);
@@ -21,11 +23,11 @@ const Main = (movieID2) => {
     }
   };
   return (
-    <div className='pt-3 w-full h-auto text-white'>
+    <div className='w-full h-[600px] text-white'>
       <div className='w-full h-full'>
-        <div className='absolute w-full h-[854px] bg-gradient-to-r from-black'></div>
+        <div className='absolute w-full h-[600px] bg-gradient-to-r from-black'></div>
         <img
-          className='w-full h-100% object-cover'
+          className='w-full h-[600px] object-cover'
           src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
           alt={movie?.title}
   

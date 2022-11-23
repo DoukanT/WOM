@@ -11,19 +11,30 @@ const Signup = () => {
         const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');
         const [cpassword, setCPassword] = useState('');
+        const [isError, setIsError] = useState('');
         const { user, signUp } = UserAuth();
         const navigate = useNavigate()
         
       
-        const handleSubmit = async (e) => {
-          e.preventDefault();
-          try {
-            await signUp(email, password, cpassword);
-            navigate('/')
-          } catch (error) {
-            console.log(error);
+      const handleSubmit = async (e) => {
+            await signUp(email, password);
+             if(password === cpassword ){
+              navigate('/')
+          } else{
+            navigate('/Signup')
           }
         };
+
+        const checkValidation= async (e)=>{
+          const cpassword = e.target.value;
+          setCPassword(cpassword);
+          if(password === cpassword ){
+            setIsError("")
+          }else{
+            setIsError("Confirm password is not matched!");
+          }
+        }
+        
 
   return (
     <>
@@ -38,8 +49,7 @@ const Signup = () => {
           <div className='max-w-[450px] h-[490px] mx-auto bg-black/75 text-white'>
             <div className='max-w-[320px] mx-auto py-10'>
               <h1 className='text-3xl font-bold'>Sign Up</h1>
-              <form
-                onSubmit={handleSubmit}
+              <form onSubmit={handleSubmit}
                 className='w-full flex flex-col py-4'
               >
                 <input
@@ -57,12 +67,13 @@ const Signup = () => {
                   autoComplete='current-password'
                 />
                 <input
-                  onChange={(e) => setCPassword(e.target.value)}
+                  onChange={(e) => checkValidation(e) }
                   className='p-3 my-2 bg-gray-700 rouded'
                   type='password'
                   placeholder='Confirm Password'
                   autoComplete='current-password'
                 />
+                {isError ? <p className='p-0 bg-red-700 my-0'>{isError}</p> : null}
                 <button className='bg-pink-500 py-3 my-6 rounded font-bold'>
                   Sign Up
                 </button>
@@ -75,7 +86,7 @@ const Signup = () => {
                 </div>
                 <p className='py-8'>
                   <span className='text-gray-500'>
-                  Already subscribed to WOM?
+                  Already subscribed to TWOM?
                   </span>{' '}
                   <Link to='/login'>Sign In</Link>  
                 </p>
