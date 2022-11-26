@@ -5,9 +5,11 @@ import { useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
 import Logo from '../logo.png'
+import SearchBar from './SearchBar';
 
 
 const Navbar = () => {
+  
 
   const { user, logOut } = UserAuth();
   const navigate = useNavigate();
@@ -92,19 +94,10 @@ const Navbar = () => {
 
    </div> ) :(
 
-  <div className="flex items-center space-x-4 text-sm font-light">
-
-    <form action="" method="GET">
-      <div onLoadStart={()=>handletab(0)} onDoubleClick={()=>handletab(0)} className={searchbar===1 ? "" :"hidden"}>
-        <input className='py-1 px-2' type="text" placeholder="Click twice to close"/>
-      </div>
-    </form>
-    <MagnifyingGlassIcon onClick={()=>handletab(1)} className={searchbar===1 ? "hidden" : "h-8 w-8 text-pink-500 cursor-pointer sm:inline"}/>
+  <div className="flex items-center space-x-4 text-sm font-light"> 
+    <SearchBar />   
     <Link to='/login'><button className='text-white p-4'>Sign In</button></Link>
-          <Link to='/signup'><button className='bg-pink-500 px-6 py-2 rounded cursor-pointer text-white'>
-      Sign Up
-       </button></Link>
-
+    <Link to='/signup'><button className='bg-pink-500 px-6 py-2 rounded cursor-pointer text-white'>Sign Up</button></Link>
   </div>
 
 )
