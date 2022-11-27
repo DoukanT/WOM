@@ -7,6 +7,7 @@ import Signup from './pages/Signup';
 import Account from './pages/Account';
 import ProtectedRoute from './components/ProtectedRoute';
 import Moviepage from"./pages/Moviepage";
+import Watchlater from"./pages/Watchlater";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path='/Account' element={<ProtectedRoute><Account />
               </ProtectedRoute>} />
         <Route path='/Moviepage' element = {<Moviepage />} />
+        <Route path='/Watchlater' element = {<Watchlater />} />
     </Routes>
     </AuthContextProvider>
     </>

@@ -61,8 +61,8 @@ const Navbar = () => {
         <ul className='hidden space-x-4 md:flex'>
             <li className='headerLink text-white text-base'><Link to="/">Home</Link></li>
             <li className='headerLink text-white text-base'>Movie Recommendation</li>
-            <li className='headerLink text-white text-base'>My List</li>
-            <li className='headerLink text-white text-base'>Watch Later</li>
+            <li className='headerLink text-white text-base'><Link to='/Account'>My List</Link></li>
+            <li className='headerLink text-white text-base'><Link to='/Watchlater'>Watch Later</Link></li>
             <li className='headerLink text-white text-base'><Link to="/Search">Advanced Search</Link></li>
         </ul>
        ) : (
