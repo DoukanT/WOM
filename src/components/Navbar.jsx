@@ -51,7 +51,7 @@ const Navbar = () => {
         <div className='flex items-center space-x-2 md:space-x-10'>
        <Link to='/'>
        <img
-          alt="the world of movie"
+          alt="world of movies"
           src={Logo}
   	      width='200px'
           height='auto'
