@@ -5,9 +5,9 @@ const Watchlater = () => {
   return (
     <>
     <div className='w-full text-white'>
-    <div className='w-full h-[130px] object-cover'/> 
-     </div>
-     <WatchedLater />
+    <div className='w-full h-24 object-cover'/> 
+    </div>
+    <WatchedLater />
     </>
   )
 }
