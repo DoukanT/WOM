@@ -12,13 +12,14 @@ const Signup = () => {
         const [password, setPassword] = useState('');
         const [cpassword, setCPassword] = useState('');
         const [isError, setIsError] = useState('');
+        const [error, setError] = useState('')
         const { user, signUp } = UserAuth();
         const navigate = useNavigate()
         
       
       const handleSubmit = async (e) => {
             await signUp(email, password);
-             if(password === cpassword ){
+            if(password === cpassword ){
               navigate('/')
           } else{
             navigate('/Signup')
@@ -58,6 +59,9 @@ const Signup = () => {
                   type='email'
                   placeholder='Email'
                   autoComplete='email'
+                  required
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                  title="Don't forget to use @ and .com"
                 />
                 <input
                   onChange={(e) => setPassword(e.target.value)}
@@ -65,6 +69,9 @@ const Signup = () => {
                   type='password'
                   placeholder='Password'
                   autoComplete='current-password'
+                  required
+                  pattern='.{6,}'
+                  title='Minimum 6 characters'
                 />
                 <input
                   onChange={(e) => checkValidation(e) }
@@ -72,8 +79,10 @@ const Signup = () => {
                   type='password'
                   placeholder='Confirm Password'
                   autoComplete='current-password'
+                  required
+                  pattern='.{6,}'
                 />
-                {isError ? <p className='p-0 bg-red-700 my-0'>{isError}</p> : null}
+                {isError ? <p className='absolute w-[320px] p-3 bg-red-400 mt-[140px] ml-[340px] '>Unmatched Passwords</p> : null}
                 <button className='bg-pink-500 py-3 my-6 rounded font-bold'>
                   Sign Up
                 </button>
@@ -86,7 +95,7 @@ const Signup = () => {
                 </div>
                 <p className='py-8'>
                   <span className='text-gray-500'>
-                  Already subscribed to TWOM?
+                  Already subscribed to WOM?
                   </span>{' '}
                   <Link to='/login'>Sign In</Link>  
                 </p>
