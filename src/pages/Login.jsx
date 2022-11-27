@@ -39,9 +39,9 @@ const Login = () => {
         <div className='bg-black/60 fixed top-0 left-0 w-full h-screen'></div>
         <div className='fixed w-full px-4 py-20 z-50'>
           <div className='max-w-[450px] h-[450px] mx-auto bg-black/75 text-white'>
+          {error ? <p className='absolute mx-28 w-[220px] p-2 bg-red-400 '>Wrong e-mail or password</p> : null}
             <div className='max-w-[320px] mx-auto py-10'>
               <h1 className='text-3xl font-bold'>Sign In</h1>
-              {error ? <p className='p-3 bg-red-400 my-2'>{error}</p> : null}
               <form
               onSubmit={handleSubmit}
                 className='w-full flex flex-col py-4'
@@ -52,6 +52,9 @@ const Login = () => {
                   type='email'
                   placeholder='Email'
                   autoComplete='email'
+                  required
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                  title="Don't forget to use @ and .com"
                 />
                 <input
                 onChange={(e) => setPassword(e.target.value)}
@@ -59,6 +62,9 @@ const Login = () => {
                   type='password'
                   placeholder='Password'
                   autoComplete='current-password'
+                  required
+                  pattern='.{6,}'
+                  title='Minimum 6 characters'
                 />
                 <button className='bg-pink-500 py-3 my-6 rounded font-bold'>
                   Sign In
@@ -72,7 +78,7 @@ const Login = () => {
                 </div>
                 <p className='py-8'>
                   <span className='text-gray-500'>
-                    New to TWOM?
+                    New to WOM?
                   </span>{' '}
                   <Link to='/Signup'>Sign Up</Link>
                   <br />
