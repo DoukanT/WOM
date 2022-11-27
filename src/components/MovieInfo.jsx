@@ -11,7 +11,7 @@ const Main = (movieID2) => {
     const requestCast= "https://api.themoviedb.org/3/movie/"+movieID2.movieID2+"/credits?api_key="+requests.key+"&language=en-US"
   useEffect(() => {
     axios.get(requestMovie).then((response) => {
-      setMovies(response.data);
+    setMovies(response.data);
     });
   }, [requestMovie]);
   useEffect(() => {
@@ -80,4 +80,4 @@ const Main = (movieID2) => {
   );
 };
 
-export default Main;
+export default MovieInfo;
