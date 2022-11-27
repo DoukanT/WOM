@@ -15,14 +15,15 @@ const SearchResults = () => {
       setMovies(response.data.results);
     });
   }, [fetchURL]);
+
   return (
     <div className='w-100% h-auto ml-3'>
-    <h2 className='pt-28 text-white font-bold md:text-xl p-4'>Search results for '{query}'</h2>
-    <div className='flex flex-wrap scroll-smooth scrollbar-hide relative'>
+      <h2 className='pt-28 text-white font-bold md:text-xl p-4'>Search results for '{query}'</h2>
+      <div className='flex flex-wrap scroll-smooth scrollbar-hide relative'>
       {movies.map((item, id) => (
         <Movie key={id} item={item} />
       ))}
-    </div>
+  </div>
     </div>
   )
 }

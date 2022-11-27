@@ -9,7 +9,6 @@ import SearchBar from './SearchBar';
 
 const Navbar = () => {
   
-
   const { user, logOut } = UserAuth();
   const navigate = useNavigate();
 

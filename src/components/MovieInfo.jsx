@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react'
 import requests from '../Requests';
 import axios from 'axios';
-const Main = (movieID2) => {
+const MovieInfo = (movieID2) => {
 
     const [movie, setMovies] = useState([]);
     const requestMovie="https://api.themoviedb.org/3/movie/"+movieID2.movieID2+"?api_key="+requests.key+"&language=en-US"
@@ -11,7 +11,7 @@ const Main = (movieID2) => {
     const requestCast= "https://api.themoviedb.org/3/movie/"+movieID2.movieID2+"/credits?api_key="+requests.key+"&language=en-US"
   useEffect(() => {
     axios.get(requestMovie).then((response) => {
-    setMovies(response.data);
+      setMovies(response.data);
     });
   }, [requestMovie]);
   useEffect(() => {
@@ -30,7 +30,9 @@ const Main = (movieID2) => {
   if (!movie?.genres) {
     return null
   }
-  console.log(cast?.crew);
+  if (!cast?.cast) {
+    return null
+  }
   return (
     <div className='w-full h-[1000px] text-white'>
       <div className='w-full h-full'>
@@ -53,25 +55,22 @@ const Main = (movieID2) => {
           </div>
           <div className='flex'>
             {movie?.genres.map(({ id, name }) => (
-            <p key={id}>{name}</p>
+            <p key={id}>{name}&nbsp;</p>
           ))}
           </div>
           <p className='text-gray-400 text-sm'>
             Released: {movie?.release_date}
           </p>
-          <p>Runtime: {movie?.runtime}</p>
+          <p>Runtime: {movie?.runtime} minutes</p>
           <div className='flex'>
             Actors:
-            <p>{cast?.cast[0].name}, &nbsp;</p>
-            <p>{cast?.cast[1].name}, &nbsp;</p>
-            <p>{cast?.cast[2].name}</p>
+            <p> {cast?.cast[0]?.name}, &nbsp;</p>
+            <p>{cast?.cast[1]?.name}, &nbsp;</p>
+            <p>{cast?.cast[2]?.name}</p>
           </div>
           <p className='w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-gray-200'>
             {truncateString(movie?.overview)}
           </p>
-          <div>
-           
-          </div>
           <div>
         </div>
         </div>
