@@ -16,11 +16,11 @@ const SearchBar = () => {
     setSearchbar(e);
   }
   return (
-    <div className="flex items-center space-x-4 text-sm font-light">
+    <div className="flex items-center space-x-4 text-sm font-light ">
       <form onSubmit={handleSubmit}>
       <div onLoadStart={()=>handletab(0)} onDoubleClick={()=>handletab(0)} className={searchbar===1 ? "" :"hidden"}>
               <input 
-                className='py-1 px-2'
+                className='h-7 w-60 mt-5 text-gray-900 font-medium p-2 placeholder-pink-500'
                 type="text"
                 placeholder="Click twice to close" 
                 value={query}

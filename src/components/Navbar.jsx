@@ -80,21 +80,22 @@ const Navbar = () => {
         </div>
 
     {user?.email ? (
-    <div className="flex items-center space-x-4 text-sm font-light">
-    <form action="" method="GET">
+    <div className="flex items-center space-x-4 text-sm font-light h-10">
+    {/* <form action="" method="GET">
           <div onLoadStart={()=>handletab(0)} onDoubleClick={()=>handletab(0)} className={searchbar===1 ? "" :"hidden"}>
             <input className='py-1 px-2' type="text" placeholder="Click twice to close"/>
           </div>
-        </form>
-        <MagnifyingGlassIcon onClick={()=>handletab(1)} className={searchbar===1 ? "hidden" : "h-8 w-8 text-pink-500 cursor-pointer sm:inline"}/>
-    <Link to='/account'><button className='text-white p-4'>Account</button></Link>
-    <button onClick={handleLogout} className='bg-pink-500 px-6 py-2 rounded cursor-pointer text-white'>
-      Logout
-     </button>
+        </form> */}
+        <SearchBar />   
+        {/* <MagnifyingGlassIcon onClick={()=>handletab(1)} className={searchbar===1 ? "hidden" : "h-8 w-8 text-pink-500 cursor-pointer sm:inline"}/> */}
+      <Link to='/account'><button className='text-white p-4'>Account</button></Link>
+      <button onClick={handleLogout} className='bg-pink-500 px-6 py-2 rounded cursor-pointer text-white'>
+        Logout
+      </button>
 
-   </div> ) :(
+    </div> ) :(
 
-  <div className="flex items-center space-x-4 text-sm font-light"> 
+  <div className="flex flex-row items-center space-x-4 text-sm font-light h-10"> 
     <SearchBar />   
     <Link to='/login'><button className='text-white p-4'>Sign In</button></Link>
     <Link to='/signup'><button className='bg-pink-500 px-6 py-2 rounded cursor-pointer text-white'>Sign Up</button></Link>
