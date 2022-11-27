@@ -16,7 +16,7 @@ const Movie = ({ item }) => {
   const navigate = useNavigate();
 
   const movieID = doc(db, 'users', `${user?.email}`);
- 
+
 
   const saveShow = async () => {
     if (user?.email) {
@@ -62,7 +62,7 @@ const Movie = ({ item }) => {
           <p  onClick={() => navigate("/Moviepage", { state: { id: item?.id } })} className='white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center'>
             {item?.title}
           </p>
-         
+        
           <p onClick={saveShow} >
           {like ? (
             <FaHeart className='absolute top-4 left-4 text-gray-300' />

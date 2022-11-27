@@ -3,7 +3,12 @@ import { useEffect } from 'react';
 import { useState } from 'react'
 import requests from '../Requests';
 import axios from 'axios';
-const Main = (movieID2) => {
+import { UserAuth } from '../context/AuthContext';
+import { db } from '../firebase';
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
+
+
+const MovieInfo = (movieID2) => {
     const [movie, setMovies] = useState([]);
     const requestMovie="https://api.themoviedb.org/3/movie/"+movieID2.movieID2+"?api_key="+requests.key+"&language=en-US"
   useEffect(() => {
@@ -19,6 +24,28 @@ const Main = (movieID2) => {
       return str;
     }
   };
+  const [push, setPush] = useState(false);
+  const [watch, setWatch] = useState(false);
+  const { user } = UserAuth();
+  const movieID = doc(db, 'users', `${user?.email}`);
+
+
+  const watchLater = async () => {
+    if (user?.email) {
+      setPush(!push);
+      setWatch(true);
+      await updateDoc(movieID, {
+        watchedLater: arrayUnion({
+          id: movie.id,
+          title: movie.title,
+          img: movie.backdrop_path,
+        }),
+      });
+    } else {
+      alert('Please log in to save a movie');
+    }
+  };
+
   return (
     <div className=' w-full h-[600px] text-white'>
       <div className='w-full h-full'>
