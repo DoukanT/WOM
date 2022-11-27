@@ -5,6 +5,7 @@ import { AuthContextProvider } from "./context/AuthContext";
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Account from './pages/Account';
+import Forget from './pages/Forget';
 import ProtectedRoute from './components/ProtectedRoute';
 import Moviepage from"./pages/Moviepage";
 import SearchResults from "./pages/SearchResults";
@@ -17,6 +18,7 @@ function App() {
     <Routes>
        <Route path='/' element={<Home />} />
        <Route path='/Login' element={<Login />} />
+       <Route path='/Forget' element={<Forget />} />
         <Route path='/Signup' element={<Signup />} />
         <Route path='/Account' element={<ProtectedRoute><Account />
               </ProtectedRoute>} />
