@@ -18,7 +18,7 @@ const Signup = () => {
       
       const handleSubmit = async (e) => {
             await signUp(email, password);
-             if(password === cpassword ){
+            if(password === cpassword ){
               navigate('/')
           } else{
             navigate('/Signup')
