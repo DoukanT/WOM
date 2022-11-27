@@ -26,10 +26,8 @@ const SearchBar = () => {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               /> </div>
-        <input type="submit" />
       </form>
       <MagnifyingGlassIcon onClick={()=>handletab(1)} className={searchbar===1 ? "hidden" : "h-8 w-8 text-pink-500 cursor-pointer sm:inline"}/>
-
     </div>
   )
 }
