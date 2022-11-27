@@ -3,12 +3,18 @@ import { useEffect } from 'react';
 import { useState } from 'react'
 import requests from '../Requests';
 import axios from 'axios';
+import { UserAuth } from '../context/AuthContext';
+import { db } from '../firebase';
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 const MovieInfo = (movieID2) => {
-
-    const [movie, setMovies] = useState([]);
-    const requestMovie="https://api.themoviedb.org/3/movie/"+movieID2.movieID2+"?api_key="+requests.key+"&language=en-US"
-    const [cast, setCast] = useState([]);
-    const requestCast= "https://api.themoviedb.org/3/movie/"+movieID2.movieID2+"/credits?api_key="+requests.key+"&language=en-US"
+  const [push, setPush] = useState(false);
+  const [watch, setWatch] = useState(false);
+  const { user } = UserAuth();
+  const movieID = doc(db, 'users', `${user?.email}`);
+  const [movie, setMovies] = useState([]);
+  const requestMovie="https://api.themoviedb.org/3/movie/"+movieID2.movieID2+"?api_key="+requests.key+"&language=en-US"
+  const [cast, setCast] = useState([]);
+  const requestCast= "https://api.themoviedb.org/3/movie/"+movieID2.movieID2+"/credits?api_key="+requests.key+"&language=en-US"
   useEffect(() => {
     axios.get(requestMovie).then((response) => {
       setMovies(response.data);
@@ -33,6 +39,23 @@ const MovieInfo = (movieID2) => {
   if (!cast?.cast) {
     return null
   }
+
+  const watchLater = async () => {
+    if (user?.email) {
+      setPush(!push);
+      setWatch(true);
+      await updateDoc(movieID, {
+        watchedLater: arrayUnion({
+          id: movie.id,
+          title: movie.title,
+          img: movie.backdrop_path,
+        }),
+      });
+    } else {
+      alert('Please log in to save a movie');
+    }
+  };
+
   return (
     <div className='w-full h-[1000px] text-white'>
       <div className='w-full h-full'>
@@ -49,8 +72,12 @@ const MovieInfo = (movieID2) => {
             <button className='border bg-gray-300 text-black border-gray-300 py-2 px-5'>
               I've already watched this
             </button>
-            <button className='border text-white border-gray-300 py-2 px-5 ml-4'>
-              Watch Later
+            <button onClick={watchLater}>
+              {push ? (
+              <p className='border bg-gray-300 text-black border-gray-300 py-2 px-5 ml-4'>Added</p>
+              ) :(
+              <p  className='border text-white border-gray-300 py-2 px-5 ml-4'>Watch Later</p>
+              )}
             </button>
           </div>
           <div className='flex'>

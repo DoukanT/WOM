@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import { FaHeart, FaRegHeart} from 'react-icons/fa';
+import {  MdOutlineWatchLater, MdOutlineCheck} from 'react-icons/md';
 import { UserAuth } from '../context/AuthContext';
 import { db } from '../firebase';
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
@@ -8,12 +9,14 @@ import { useNavigate } from 'react-router-dom';
 
 const Movie = ({ item }) => {
   const [like, setLike] = useState(false);
+  const [add, setAdd] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [watch, setWatch] = useState(false);
   const { user } = UserAuth();
   const navigate = useNavigate();
 
   const movieID = doc(db, 'users', `${user?.email}`);
- 
+
 
   const saveShow = async () => {
     if (user?.email) {
@@ -21,6 +24,22 @@ const Movie = ({ item }) => {
       setSaved(true);
       await updateDoc(movieID, {
         savedShows: arrayUnion({
+          id: item.id,
+          title: item.title,
+          img: item.backdrop_path,
+        }),
+      });
+    } else {
+      alert('Please log in to save a movie');
+    }
+  };
+
+  const watchLater = async () => {
+    if (user?.email) {
+      setAdd(!add);
+      setWatch(true);
+      await updateDoc(movieID, {
+        watchedLater: arrayUnion({
           id: item.id,
           title: item.title,
           img: item.backdrop_path,
@@ -43,12 +62,19 @@ const Movie = ({ item }) => {
           <p  onClick={() => navigate("/Moviepage", { state: { id: item?.id } })} className='white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center'>
             {item?.title}
           </p>
-         
+        
           <p onClick={saveShow} >
           {like ? (
             <FaHeart className='absolute top-4 left-4 text-gray-300' />
           ) : (
             <FaRegHeart className='absolute top-4 left-4 text-gray-300' />
+          )}
+        </p> 
+        <p onClick={watchLater} >
+          {add ? (
+            <MdOutlineCheck className='absolute top-4 left-10 text-gray-300' />
+          ) : (
+            <MdOutlineWatchLater className='absolute top-4 left-10 text-gray-300' />
           )}
         </p> 
         </div>  

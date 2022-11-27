@@ -1,38 +1,27 @@
 import React, { useState, useEffect } from 'react'
-import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import { UserAuth } from '../context/AuthContext';
 import { db } from '../firebase';
 import { updateDoc, doc, onSnapshot } from 'firebase/firestore';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
-
-
-const SavedShows = () => {
+//tamamlandı
+const WatchedLater = () => {
     const [movies, setMovies] = useState([]);
     const { user } = UserAuth();
     const navigate = useNavigate();
-    
-  const slideLeft = () => {
-    var slider = document.getElementById('slider');
-    slider.scrollLeft = slider.scrollLeft - 500;
-  };
-  const slideRight = () => {
-    var slider = document.getElementById('slider');
-    slider.scrollLeft = slider.scrollLeft + 500;
-  };
 
-  useEffect(() => {
-    onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
-      setMovies(doc.data()?.savedShows);
-    });
-  }, [user?.email]);
+      useEffect(() => {
+        onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
+          setMovies(doc.data()?.watchedLater);
+        });
+      }, [user?.email]);
 
-  const movieRef = doc(db, 'users', `${user?.email}`)
-  const deleteShow = async (passedID) => {
+      const movieRef = doc(db, 'users', `${user?.email}`)
+      const deleteShow = async (passedID) => {
       try {
         const result = movies.filter((item) => item.id !== passedID)
         await updateDoc(movieRef, {
-            savedShows: result
+            watchedLater: result
         })
       } catch (error) {
           console.log(error)
@@ -42,18 +31,9 @@ const SavedShows = () => {
 
   return (
     <>  
-    <h2 className='text-white font-bold md:text-xl p-4'>My List</h2>
+    <h2 className='text-white font-bold md:text-xl p-6'>Watch Later</h2>
     <div className='relative flex items-center group'>
-     <MdChevronLeft
-       onClick={slideLeft}
-       className='bg-white left-0 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block'
-       size={40}
-     />
-
-     <div
-       id={'slider' }
-       className='w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative'
-     >
+     <div>
        {movies.map((item, id) => (
          <div key={id} className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'>
          <img
@@ -70,16 +50,9 @@ const SavedShows = () => {
        </div>
        ))}
      </div>
-
-     <MdChevronRight
-       onClick={slideRight}
-       className='bg-white right-0 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block'
-       size={40}
-     />
    </div>
    </>
-
   )
 }
 
-export default SavedShows
+export default WatchedLater
