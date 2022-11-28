@@ -68,7 +68,7 @@ const Navbar = () => {
             <li className='headerLink text-white text-base'><Link to="/Login">Movie Recommendation</Link></li>
             <li className='headerLink text-white text-base'><Link to="/Login">My List</Link></li>
             <li className='headerLink text-white text-base'><Link to="/Login">Watch Later</Link></li>
-            <li className='headerLink text-white text-base'><Link to="/Login">Advanced Search</Link></li>
+            <li className='headerLink text-white text-base'><Link to="/Search">Advanced Search</Link></li>
         </ul>
        )
        }

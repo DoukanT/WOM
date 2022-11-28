@@ -15,4 +15,4 @@ const Moviepage = () => {
   )
 }
 
-export default Moviepage
+export default Moviepage 

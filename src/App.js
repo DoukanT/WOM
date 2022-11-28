@@ -9,6 +9,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Moviepage from"./pages/Moviepage";
 import SearchResults from "./pages/SearchResults";
 import Watchlater from"./pages/Watchlater";
+import Search from "./pages/Search";
 
 
 function App() {
@@ -25,6 +26,8 @@ function App() {
         <Route path='/Moviepage' element = {<Moviepage />} />
         <Route path='/SearchResults' element = {<SearchResults />} />
         <Route path='/Watchlater' element = {<Watchlater />} />
+        <Route path='/Search' element = {<Search />} />
+
 
     </Routes>
     </AuthContextProvider>
