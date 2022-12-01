@@ -6,43 +6,41 @@ import { updateDoc, doc, onSnapshot } from 'firebase/firestore';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 
+const UnlikedShows = () => {
 
-const SavedShows = () => {
     const [movies, setMovies] = useState([]);
     const { user } = UserAuth();
     const navigate = useNavigate();
-    
-  const slideLeft = () => {
-    var slider = document.getElementById('slider');
-    slider.scrollLeft = slider.scrollLeft - 500;
-  };
-  const slideRight = () => {
-    var slider = document.getElementById('slider');
-    slider.scrollLeft = slider.scrollLeft + 500;
-  };
 
-  useEffect(() => {
-    onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
-      setMovies(doc.data()?.savedShows);
-    });
-  }, [user?.email]);
+    const slideLeft = () => {
+        var slider = document.getElementById('slider');
+        slider.scrollLeft = slider.scrollLeft - 500;
+      };
+      const slideRight = () => {
+        var slider = document.getElementById('slider');
+        slider.scrollLeft = slider.scrollLeft + 500;
+      };
 
-  const movieRef = doc(db, 'users', `${user?.email}`)
+      useEffect(() => {
+        onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
+          setMovies(doc.data()?.unlikedShows);
+        });
+      }, [user?.email]);
+
+      const movieRef = doc(db, 'users', `${user?.email}`)
   const deleteShow = async (passedID) => {
       try {
         const result = movies.filter((item) => item.id !== passedID)
         await updateDoc(movieRef, {
-            savedShows: result
+            unlikedShows: result
         })
       } catch (error) {
           console.log(error)
       }
   }
-
-
   return (
-    <>  
-    <h2 className='text-white font-bold md:text-xl p-4'>Like</h2>
+    <>
+    <h2 className='text-white font-bold md:text-xl p-4'>Unlike</h2>
     <div className='relative flex items-center group'>
      <MdChevronLeft
        onClick={slideLeft}
@@ -77,9 +75,9 @@ const SavedShows = () => {
        size={40}
      />
    </div>
-   </>
-
+    </>
+   
   )
 }
 
-export default SavedShows
+export default UnlikedShows

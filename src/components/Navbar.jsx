@@ -77,7 +77,7 @@ const Navbar = () => {
     {user?.email ? (
     <div className="flex items-center space-x-4 text-sm font-light h-10">
       <SearchBar />   
-      <Link to='/account'><button className='text-white p-4'>Account</button></Link>
+      <Link to='/Account2'><button className='text-white p-4'>Account</button></Link>
       <button onClick={handleLogout} className='bg-pink-500 px-6 py-2 rounded cursor-pointer text-white'>
         Logout
       </button>

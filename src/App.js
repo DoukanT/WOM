@@ -10,6 +10,7 @@ import Moviepage from"./pages/Moviepage";
 import SearchResults from "./pages/SearchResults";
 import Watchlater from"./pages/Watchlater";
 import Search from "./pages/Search";
+import Account2 from "./pages/Account2";
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path='/SearchResults' element = {<SearchResults />} />
         <Route path='/Watchlater' element = {<Watchlater />} />
         <Route path='/Search' element = {<Search />} />
+        <Route path='/Account2' element = {<Account2 />} />
 
 
     </Routes>
