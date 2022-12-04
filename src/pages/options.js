@@ -51,6 +51,6 @@ export const languages = [
 ]
 
 export const age = [
-    { label: "For kids", value: "kid" },
-    { label: "All", value: "adult" },
+    { label: "Family Friendly", value: "kid" },
+    { label: "Mature (+18)", value: "adult" },
 ]
