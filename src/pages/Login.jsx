@@ -85,7 +85,7 @@ const Login = () => {
                   <span className='text-gray-500'>
                   Did you forget your password?
                   </span>{' '}
-                  <Link to='/'>Forget</Link>
+                  <Link to='/Forget'>Forget</Link>
                 </p>
               </form>
             </div>

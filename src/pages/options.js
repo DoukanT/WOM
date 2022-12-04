@@ -32,7 +32,7 @@ export const languages = [
     { label: "German", value: "de" },
     { label: "Greek", value: "el" },
     { label: "Hebrew", value: "he" },
-    { label: "Hindi", value: "hi" },
+    { label: "Indian", value: "hi" },
     { label: "Hungarian", value: "hu" },
     { label: "Indonesian", value: "id" },
     { label: "Italian", value: "it" },

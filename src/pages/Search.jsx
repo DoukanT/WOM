@@ -44,7 +44,7 @@ const Search = () => {
     }
     if(selectedLanguage.length>0){
       selectedLanguage.map(item => {
-         searchUrl = searchUrl+'&with_original_language='+item.value
+        searchUrl = searchUrl+'&with_original_language='+item.value
 
       })
     }
