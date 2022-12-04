@@ -141,6 +141,10 @@ const MovieInfo = (movieID2) => {
               </p> 
           </button>
           </div>
+          <div className='flex'>
+          <p className='text-pink-500 text-base ' >Score: </p>
+          <p>{movie?.vote_average}</p> 
+          </div>
          
           <div className='flex'>
           <p className='text-pink-500 text-base ' >Genres: </p>
