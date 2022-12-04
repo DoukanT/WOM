@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Search = () => {
-  var searchUrl="https://api.themoviedb.org/3/discover/movie?api_key="+requests.key
+  var searchUrl="https://api.themoviedb.org/3/discover/movie?api_key="+requests.key+'&page=1&include_adult=false'
   const [selectedGenre, setSelectedGenre] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [selectedAge, setSelectedAge] = useState([]);
@@ -22,9 +22,9 @@ const Search = () => {
   
   const submitButton = (event) => {
     event.preventDefault();
-    if(selectedAge.some(e => e.value === 'kid')& !selectedAge.some(e => e.value === 'adult')){
-      searchUrl = searchUrl+'&include_adult=false'
-    }
+    // if(selectedAge.some(e => e.value === 'kid')& !selectedAge.some(e => e.value === 'adult')){
+    //   searchUrl = searchUrl+'&include_adult=false'
+    // }
     if(minTimeValue.length>0){
       searchUrl = searchUrl+'&with_runtime.gte='+minTimeValue
     }
@@ -46,7 +46,8 @@ const Search = () => {
     if(selectedLanguage.length>0){
       console.log(selectedLanguage)
       selectedLanguage.map(item => {
-        searchUrl = searchUrl+'&language='+item.value
+        searchUrl = searchUrl+'&with_original_language='+item.value
+
       })
     }
     if(selectedGenre.length>0){
