@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { MultiSelect } from "react-multi-select-component";
-import {genres, languages, runTime, age} from "./options"
+import {genres, languages, age} from "./options"
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { pink } from '@mui/material/colors';
 
@@ -8,18 +8,35 @@ import { pink } from '@mui/material/colors';
 const Search = () => {
   const [selectedGenre, setSelectedGenre] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState([]);
-  const [selectedTime, setSelectedTime] = useState([]);
   const [selectedAge, setSelectedAge] = useState([]);
-  const [minValue, setminValue] = React.useState("");
-  const [maxValue, setmaxValue] = React.useState("");
+  const [minYearValue, setminYearValue] = React.useState("");
+  const [maxYearValue, setmaxYearValue] = React.useState("");
+  const [minTimeValue, setminTimeValue] = React.useState("");
+  const [maxTimeValue, setmaxTimeValue] = React.useState("");
+  const [minScoreValue, setminScoreValue] = React.useState("");
+  const [maxScoreValue, setmaxScoreValue] = React.useState("");
 
 
-const onChangeHandler = event => {
-  setminValue(event.target.value);
-};
-const onChangeHandler2 = event => {
-  setmaxValue(event.target.value);  
-};
+  const onChangeYear = event => {
+    setminYearValue(event.target.value);
+  };
+  const onChangeYear2 = event => {
+    setmaxYearValue(event.target.value);  
+  };
+
+  const onChangeTime = event => {
+    setminTimeValue(event.target.value);
+  };
+  const onChangeTime2 = event => {
+    setmaxTimeValue(event.target.value);  
+  };
+
+  const onChangeScore = event => {
+    setminScoreValue(event.target.value);
+  };
+  const onChangeScore2 = event => {
+    setmaxScoreValue(event.target.value);  
+  };
 
   return (
     <div className='pt-24 pb-10 w-full h-full'>
@@ -43,35 +60,46 @@ const onChangeHandler2 = event => {
             onChange={setSelectedLanguage}
             labelledBy="Select Language"
           />
-          <h1 className='text-white pt-6 font-medium text-xl'>Select Run Time</h1>
-          <MultiSelect
-            className="text-pink-500 w-[400px] h-[50px]"
-            hasSelectAll={true}
-            options={runTime}
-            value={selectedTime}
-            onChange={setSelectedTime}
-            labelledBy="Select Run Time"
-            disableSearch={true}
-          />
           <div className='flex flex-row items-center justify-items-center pt-6 gap-3'>
-            <h1 className='text-white font-medium text-base text-center'>Select Min Year</h1>
+            <h1 className='text-white font-medium text-base text-center'>Min Runtime Value</h1>
             <input
               className="text-pink-500 w-[100px] h-[40px]"
               type="text"
               name="name"
-              onChange={onChangeHandler}
-              value={minValue}
+              onChange={onChangeTime}
+              value={minTimeValue}
             />
             <ArrowForwardIcon 
               sx={{ color: pink[400] }}
             />
-            <h1 className='text-white font-medium text-base text-center'>Select Max Year</h1>
+            <h1 className='text-white font-medium text-base text-center'>Max Runtime Value</h1>
             <input
               className="text-pink-500 w-[100px] h-[40px]"
               type="text"
               name="name"
-              onChange={onChangeHandler2}
-              value={maxValue}
+              onChange={onChangeTime2}
+              value={maxTimeValue}
+            />
+          </div>
+          <div className='flex flex-row items-center justify-items-center pt-6 gap-3'>
+            <h1 className='text-white font-medium text-base text-center'>Min Year</h1>
+            <input
+              className="text-pink-500 w-[100px] h-[40px]"
+              type="text"
+              name="name"
+              onChange={onChangeYear}
+              value={minYearValue}
+            />
+            <ArrowForwardIcon 
+              sx={{ color: pink[400] }}
+            />
+            <h1 className='text-white font-medium text-base text-center'>Max Year</h1>
+            <input
+              className="text-pink-500 w-[100px] h-[40px]"
+              type="text"
+              name="name"
+              onChange={onChangeYear2}
+              value={maxYearValue}
             />
           </div>
           <h1 className='text-white pt-6 font-medium text-xl'>Select Age Filter</h1>
@@ -84,6 +112,30 @@ const onChangeHandler2 = event => {
             labelledBy="Select Age"
             disableSearch={true}
           />
+          <div className='flex flex-row items-center justify-items-center pt-6 gap-3'>
+            <h1 className='text-white font-medium text-base text-center'>Min IMDB Score</h1>
+            <input
+              className="text-pink-500 w-[100px] h-[40px]"
+              type="text"
+              name="name"
+              onChange={onChangeScore}
+              value={minScoreValue}
+            />
+            <ArrowForwardIcon 
+              sx={{ color: pink[400] }}
+            />
+            <h1 className='text-white font-medium text-base text-center'>Max IMDB Score</h1>
+            <input
+              className="text-pink-500 w-[100px] h-[40px]"
+              type="text"
+              name="name"
+              onChange={onChangeScore2}
+              value={maxScoreValue}
+            />
+          </div>
+          <button className='bg-pink-500 px-[50px] py-[15px] mt-[50px] mb-[15px] rounded font-bold text-black hover:text-white hover:bg-pink-800'>
+            Submit
+          </button>
         </div>
       </div>
     </div>

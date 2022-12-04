@@ -52,12 +52,6 @@ export const languages = [
     { label: "Vietnamese", value: "vi" },
 ]
 
-export const runTime = [
-    { label: "Up to 90 minute", value: "1" },
-    { label: "Between 90-150 minute", value: "2" },
-    { label: "Over 150 minute", value: "3" },
-]
-
 export const age = [
     { label: "For kids", value: "kid" },
     { label: "Mature (+18)", value: "adult" },
