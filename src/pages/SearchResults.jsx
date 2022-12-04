@@ -23,7 +23,7 @@ const SearchResults = () => {
       {movies.map((item, id) => (
         <Movie key={id} item={item} />
       ))}
-  </div>
+      </div>
     </div>
   )
 }

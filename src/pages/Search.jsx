@@ -3,9 +3,12 @@ import { MultiSelect } from "react-multi-select-component";
 import {genres, languages, age} from "./options"
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { pink } from '@mui/material/colors';
+import requests from '../Requests';
+import { useNavigate } from 'react-router-dom';
 
 
 const Search = () => {
+  var searchUrl="https://api.themoviedb.org/3/discover/movie?api_key="+requests.key
   const [selectedGenre, setSelectedGenre] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [selectedAge, setSelectedAge] = useState([]);
@@ -15,7 +18,45 @@ const Search = () => {
   const [maxTimeValue, setmaxTimeValue] = React.useState("");
   const [minScoreValue, setminScoreValue] = React.useState("");
   const [maxScoreValue, setmaxScoreValue] = React.useState("");
-
+  const navigate = useNavigate();
+  
+  const submitButton = (event) => {
+    event.preventDefault();
+    if(selectedAge.some(e => e.value === 'kid')& !selectedAge.some(e => e.value === 'adult')){
+      searchUrl = searchUrl+'&include_adult=false'
+    }
+    if(minTimeValue.length>0){
+      searchUrl = searchUrl+'&with_runtime.gte='+minTimeValue
+    }
+    if(maxTimeValue.length>0){
+      searchUrl = searchUrl+'&with_runtime.lte='+maxTimeValue
+    }
+    if(minYearValue.length>0){
+      searchUrl = searchUrl+'&release_date.gte='+minYearValue
+    }
+    if(maxYearValue.length>0){
+      searchUrl = searchUrl+'&release_date.lte='+maxYearValue
+    }
+    if(minScoreValue.length>0){
+      searchUrl = searchUrl+'&vote_average.gte='+minScoreValue
+    }
+    if(maxScoreValue.length>0){
+      searchUrl = searchUrl+'&vote_average.lte='+maxScoreValue
+    }
+    if(selectedLanguage.length>0){
+      console.log(selectedLanguage)
+      selectedLanguage.map(item => {
+        searchUrl = searchUrl+'&language='+item.value
+      })
+    }
+    if(selectedGenre.length>0){
+      console.log(selectedGenre)
+      selectedGenre.map(item => {
+        searchUrl = searchUrl+'&with_genres='+item.value
+      })
+    }
+    navigate("/AdvancedSearchResults", { state: { url: searchUrl } })
+  }
 
   const onChangeYear = event => {
     setminYearValue(event.target.value);
@@ -133,7 +174,7 @@ const Search = () => {
               value={maxScoreValue}
             />
           </div>
-          <button className='bg-pink-500 px-[50px] py-[15px] mt-[50px] mb-[15px] rounded font-bold text-black hover:text-white hover:bg-pink-800'>
+          <button onClick={submitButton} className='bg-pink-500 px-[50px] py-[15px] mt-[50px] mb-[15px] rounded font-bold text-black hover:text-white hover:bg-pink-800'>
             Submit
           </button>
         </div>
