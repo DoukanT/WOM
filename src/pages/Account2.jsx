@@ -6,7 +6,7 @@ const Account2 = () => {
   return (
     <>
     <div className='pt-24'>
-    <div className='mx-auto max-w-6xl pt-24 pb-12 transition-all md:px-10'>
+    <div className='mx-auto max-w-6xl pt-24 pb-12 transition-all px-10 md:px-10'>
     <div>
         <h1 className='text-[white] text-3xl md:text-4xl'>Account</h1>
       </div>
