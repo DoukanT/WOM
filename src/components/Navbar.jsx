@@ -81,7 +81,7 @@ const Navbar = () => {
             </ul>
             
             ) : (
-            <ul className='md:hidden space-x-6 flex md:justify-center md:items-center'>
+            <ul className='md:hidden space-x-6 flex justify-center items-center'>
               <li className='headerLink text-white text-base'><Link to="/">Home</Link></li>
               <li className='text-center headerLink text-white text-base'><Link to="/Login">Movie Recommendation</Link></li>
               <li className='text-center headerLink text-white text-base'><Link to="/Search">Advanced Search</Link></li>
