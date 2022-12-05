@@ -118,7 +118,7 @@ const Navbar = () => {
         </div> 
         ) :(
 
-        <div className="flex flex-row items-center space-x-2 text-sm font-light h-10"> 
+        <div className="md:hidden flex flex-row items-center space-x-2 text-sm font-light h-10"> 
           <SearchBar />   
           <Link to='/login'><button className='text-white p-4'>Sign In</button></Link>
 
