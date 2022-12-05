@@ -40,12 +40,14 @@ const AdvancedSearchResults = () => {
         <Movie key={id} item={item} />
       ))}
       </div>
-      <button onClick={() => submitButton2()} className='bg-pink-500 px-[50px] py-[15px] mt-[50px] mb-[15px] rounded font-bold text-black hover:text-white hover:bg-pink-800'>
-        Previous
-      </button>
-      <button onClick={() => submitButton()} className='bg-pink-500 px-[50px] py-[15px] mt-[50px] mb-[15px] rounded font-bold text-black hover:text-white hover:bg-pink-800'>
-        Next
-      </button>
+        <div className='w-full h-[100px] flex flex-wrap items-center justify-center'>
+          <button onClick={() => submitButton2()} className='mr-[30px] bg-pink-500 px-[37px] py-[15px] rounded font-bold text-black hover:text-white hover:bg-pink-800'>
+            Previous
+          </button>
+          <button onClick={() => submitButton()} className='bg-pink-500 px-[50px] py-[15px] rounded font-bold text-black hover:text-white hover:bg-pink-800'>
+            Next
+          </button>
+        </div>
     </div>
   )
 }
