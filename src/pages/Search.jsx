@@ -80,8 +80,8 @@ const Search = () => {
 
   return (
     <div className='pt-24 pb-10 w-full h-full'>
-      <div className='mt-[30px] mx-[400px]' style={{boxShadow: "rgba(240, 46, 170, 0.17) 0px 23px 25px 0px inset, rgba(240, 46, 170, 0.15) 0px 36px 30px 0px inset, rgba(240, 46, 170, 0.1) 0px 79px 40px 0px inset, rgba(240, 46, 170, 0.17) 0px -23px 25px 0px inset, rgba(240, 46, 170, 0.15) 0px -36px 30px 0px inset, rgba(240, 46, 170, 0.1) 0px -79px 40px 0px inset"}}>
-        <div className='flex flex-col items-center justify-items-center mx-[150px] py-[70px] gap-2'>
+      <div className='mt-[30px] md:mx-[80px] lg:mx-[200px] xl:mx-[300px]' style={{boxShadow: "rgba(240, 46, 170, 0.17) 0px 23px 25px 0px inset, rgba(240, 46, 170, 0.15) 0px 36px 30px 0px inset, rgba(240, 46, 170, 0.1) 0px 79px 40px 0px inset, rgba(240, 46, 170, 0.17) 0px -23px 25px 0px inset, rgba(240, 46, 170, 0.15) 0px -36px 30px 0px inset, rgba(240, 46, 170, 0.1) 0px -79px 40px 0px inset"}}>
+        <div className='flex flex-col items-center justify-items-center py-[70px] gap-2'>
           <h1 className='text-white font-medium text-xl'>Select Genre(s)</h1>
           <MultiSelect
             className="text-pink-500 w-[400px] h-[50px]"
