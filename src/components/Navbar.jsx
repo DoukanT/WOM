@@ -4,7 +4,6 @@ import { useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
 import Logo from '../logo.png'
-import DehazeIcon from '@mui/icons-material/Dehaze';
 import SearchBar from './SearchBar';
 
 

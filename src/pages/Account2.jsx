@@ -1,8 +1,20 @@
 import React from 'react'
 import { UserAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Account2 = () => {
-  const { user } = UserAuth();
+  const { user, logOut } = UserAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
     <div className='pt-24'>
@@ -31,7 +43,7 @@ const Account2 = () => {
     <div className='mt-6 grid-cols-1 gap-x-4 border px-4 md:grid-cols-4 md:border-x-0 md:border-t md:border-b-0 md:px-0'>
       <div className='flex flex-col justify-between border-b border-white/10  py-4 md:flex-row'>
       <h4 className='text-lg text-[gray]'>Settings</h4>
-     <p className='col-span-3 cursor-pointer text-blue-500 {}hover:underline'>Sign out of all devices</p>
+      <button onClick={handleLogout}><p className='col-span-3 cursor-pointer text-blue-500 {}hover:underline'>Sign out of all devices</p></button>
       </div>
     </div>
     
