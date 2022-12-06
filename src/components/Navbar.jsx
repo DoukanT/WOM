@@ -73,17 +73,17 @@ const Navbar = () => {
           }
 
           {user?.email ?(
-            <ul className='md:hidden space-x-6 flex justify-center items-center'>
-              <li className='headerLink text-white text-base'><Link to="/">Home</Link></li>
-              <li className='text-center headerLink text-white text-base'>Movie Recommendation</li>
-              <li className='text-center headerLink text-white text-base'><Link to="/Search">Advanced Search</Link></li>
+            <ul className='md:hidden space-x-5 flex justify-center items-center'>
+              <li className='headerLink text-white text-sm'><Link to="/">Home</Link></li>
+              <li className='text-center headerLink text-white text-sm'>Movie Recommendation</li>
+              <li className='text-center headerLink text-white text-sm'><Link to="/Search">Advanced Search</Link></li>
             </ul>
             
             ) : (
-            <ul className='md:hidden space-x-6 flex justify-center items-center'>
-              <li className='headerLink text-white text-base'><Link to="/">Home</Link></li>
-              <li className='text-center headerLink text-white text-base'><Link to="/Login">Movie Recommendation</Link></li>
-              <li className='text-center headerLink text-white text-base'><Link to="/Search">Advanced Search</Link></li>
+            <ul className='md:hidden space-x-5 flex justify-center items-center'>
+              <li className='headerLink text-white text-sm'><Link to="/">Home</Link></li>
+              <li className='text-center headerLink text-white text-sm'><Link to="/Login">Movie Recommendation</Link></li>
+              <li className='text-center headerLink text-white text-sm'><Link to="/Search">Advanced Search</Link></li>
             </ul>
             )
           }
@@ -110,14 +110,14 @@ const Navbar = () => {
       )}
 
       {user?.email ? (
-        <div className="md:hidden flex items-center space-x-2 text-sm font-light h-10">
+        <div className="md:hidden flex items-center space-x text-sm font-light h-10">
           <SearchBar />   
-          <Link to='/Account2'><button className='text-white p-4'>Account</button></Link>
+          <Link to='/Account2'><button className='text-white p-4  '>Account</button></Link>
 
         </div> 
         ) :(
 
-        <div className="md:hidden flex flex-row items-center space-x-2 text-sm font-light h-10"> 
+        <div className="md:hidden flex flex-row items-center space-x text-sm font-light h-10"> 
           <SearchBar />   
           <Link to='/login'><button className='text-white p-4'>Sign In</button></Link>
 
