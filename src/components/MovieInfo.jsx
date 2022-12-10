@@ -8,9 +8,10 @@ import { db } from '../firebase';
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import {  AiTwotoneLike, AiTwotoneDislike} from 'react-icons/ai';
 import {  BiLike, BiDislike} from 'react-icons/bi';
-
+import Platforms from '../components/Platforms'
 
 const MovieInfo = (movieID2) => {
+  
   const [push, setPush] = useState(false);
   const [watch, setWatch] = useState(false);
   const [like, setLike] = useState(false);
@@ -97,8 +98,6 @@ const MovieInfo = (movieID2) => {
       alert('Please log in to save a movie');
     }
   };
-
- 
   return (
     <div className='w-full h-[1000px] text-white'>
       <div className='w-full h-full'>
@@ -141,9 +140,9 @@ const MovieInfo = (movieID2) => {
               </p> 
           </button>
           </div>
-          <div className='flex'>
-          <p className='text-pink-500 text-base ' >Score: </p>
-          <p>{movie?.vote_average}</p> 
+          <div className='text-white text-base flex '>
+            <p className='text-pink-500 text-base ' >Score: </p>
+            <p>{movie?.vote_average.toFixed(1)}</p>
           </div>
          
           <div className='flex'>
@@ -171,6 +170,10 @@ const MovieInfo = (movieID2) => {
           <p className='w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-gray-200'>
             {truncateString(movie?.overview)}
           </p>
+
+          <div className='flex gap-5' >
+            <Platforms movie={movieID2.movieID2}/>
+          </div>
           <div>
         </div>
         </div>
