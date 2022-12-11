@@ -16,10 +16,7 @@ const Modal = ({open,onClose}) => {
           <button onClick={onClose} className='closeBtn' >
             X
           </button>
-        <h1 className="font-semibold text-center text-xl text-gray-700">
-          Welcome back
-        </h1>
-        <p className="text-center text-gray-700 mb-5">Sign in</p>
+        <p className="text-center text-gray-700 mb-5">Password Change</p>
 
         <div className="flex flex-col">
           <input
@@ -30,7 +27,7 @@ const Modal = ({open,onClose}) => {
           <input
             type="text"
             className="border border-gray-700 p-2 rounded mb-5"
-            placeholder="********"
+            placeholder="New email "
           />
         </div>
         <div className="text-center">
