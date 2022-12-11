@@ -1,10 +1,14 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { UserAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import Modal from '../components/Modal';
+import Modal2 from '../components/Modal2';
 
 const Account2 = () => {
   const { user, logOut } = UserAuth();
   const navigate = useNavigate();
+  const [openModal, setOpenModal] = useState(false)
+  const [openModal2, setOpenModal2] = useState(false)
 
   const handleLogout = async () => {
     try {
@@ -34,8 +38,11 @@ const Account2 = () => {
           <p className='text-[white]'>Password: **********</p>
         </div>
         <div className='md:text-right'>
-        <p className='cursor-pointer text-blue-500 hover:underLine'>Change email</p>
-        <p className='cursor-pointer text-blue-500 hover:underLine'>Change password</p>
+        <button onClick={() => setOpenModal(true)} className='cursor-pointer text-blue-500 '>Change email</button>
+        <Modal open={openModal} onClose={()=> setOpenModal(false)}/>
+
+        <p onClick={() => setOpenModal2(true)} className='cursor-pointer text-blue-500'>Change password</p>
+        <Modal2 open={openModal2} onClose={()=> setOpenModal2(false)}/>
         </div>
       </div>
     </div>
