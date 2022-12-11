@@ -16,7 +16,7 @@ const Modal = ({open,onClose}) => {
           <button onClick={onClose} className='closeBtn' >
             X
           </button>
-        <p className="text-center text-gray-700 mb-5">Password Change</p>
+        <p className="text-center text-gray-700 mb-5">Change e-mail</p>
 
         <div className="flex flex-col">
           <input
@@ -32,7 +32,7 @@ const Modal = ({open,onClose}) => {
         </div>
         <div className="text-center">
           <button className="px-5 py-2 bg-gray-700 text-white rounded">
-            Sign in
+            Change
           </button>
         </div>
       </div>
