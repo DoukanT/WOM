@@ -15,6 +15,7 @@ import Account2 from "./pages/Account2";
 import AdvancedSearchResults from "./pages/AdvancedSearchResults";
 import Modal from "./components/Modal";
 import Modal2 from "./components/Modal2";
+import Recommendations from "./pages/Recommendations";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
     <Navbar />
     <Routes>
        <Route path='/' element={<Home />} />
+       <Route path='/Recommendations' element={<Recommendations />} />
        <Route path='/Login' element={<Login />} />
        <Route path='/Forget' element={<Forget />} />
         <Route path='/Signup' element={<Signup />} />
