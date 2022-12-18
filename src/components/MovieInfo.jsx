@@ -9,8 +9,11 @@ import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import {  AiTwotoneLike, AiTwotoneDislike} from 'react-icons/ai';
 import {  BiLike, BiDislike} from 'react-icons/bi';
 import Platforms from '../components/Platforms'
+import { useNavigate } from 'react-router-dom';
+
 
 const MovieInfo = (movieID2) => {
+  const navigate = useNavigate();
   
   const [push, setPush] = useState(false);
   const [watch, setWatch] = useState(false);
@@ -98,6 +101,7 @@ const MovieInfo = (movieID2) => {
       alert('Please log in to save a movie');
     }
   };
+  console.log(movie)
   return (
     <div className='max-w-full h-[1000px] text-white'>
       <div className='w-full h-full'>
@@ -144,11 +148,9 @@ const MovieInfo = (movieID2) => {
                     )}
                   </p> 
                 </button> 
+                <p  onClick={() => navigate("/Recommendations", { state: {name:movie?.title, id: movie?.id } })} className='w-[50px] border border-[2px] text-white border-pink-500 py-2 px-5'>Recommend</p>
+
               </div>
-          {/* <div className='text-white text-base flex '>
-            <p className='text-pink-500 text-base' >Score: </p>
-            <p>{movie?.vote_average.toFixed(1)}</p>
-          </div> */}
         
           <div className='flex pb-[5px]'>
           <p className='text-pink-500 text-base' >Genres: </p> <p className='opacity-0'>""""</p>
@@ -186,9 +188,9 @@ const MovieInfo = (movieID2) => {
           </div>
           <div>
         </div>
-
-          
-
+        <p  onClick={() => navigate("/Recommendations", { state: {name:movie?.title, id: movie?.id } })} className='white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center'>
+            {movie?.title}
+          </p>
         </div>
       </div>
     </div>

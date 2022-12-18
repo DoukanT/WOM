@@ -12,7 +12,6 @@ const Search = () => {
   var searchUrl="https://api.themoviedb.org/3/discover/movie?api_key="+requests.key+'&include_adult=false'+'&page='+pageNumber
   const [selectedGenre, setSelectedGenre] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState([]);
-  // const [selectedAge, setSelectedAge] = useState([]);
   const [minYearValue, setminYearValue] = React.useState("");
   const [maxYearValue, setmaxYearValue] = React.useState("");
   const [minTimeValue, setminTimeValue] = React.useState("");
@@ -142,16 +141,6 @@ const Search = () => {
               value={maxYearValue}
             />
           </div>
-          {/* <h1 className='text-white pt-6 font-medium text-xl'>Select Age Filter</h1>
-          <MultiSelect
-            className="text-pink-500 w-[400px] h-[50px]"
-            hasSelectAll={false}
-            options={age}
-            value={selectedAge}
-            onChange={setSelectedAge}
-            labelledBy="Select Age"
-            disableSearch={true}
-          /> */}
           <div className='flex flex-row items-center justify-items-center pt-6 gap-3'>
             <h1 className='text-white font-medium text-base text-center'>Min IMDB Score</h1>
             <input
