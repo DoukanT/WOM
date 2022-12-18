@@ -9,12 +9,18 @@ import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import {  AiTwotoneLike, AiTwotoneDislike} from 'react-icons/ai';
 import {  BiLike, BiDislike} from 'react-icons/bi';
 import Platforms from '../components/Platforms'
+<<<<<<< HEAD
 import CircleIcon from '@mui/icons-material/Circle';
 import { useNavigate } from 'react-router-dom';
 
 
+=======
+import { useNavigate } from 'react-router-dom';
+
+>>>>>>> 8e2e0ddc918faaf02bccdf9abea2db41db4203c0
 
 const MovieInfo = (movieID2) => {
+  const navigate = useNavigate();
   
   const [push, setPush] = useState(false);
   const [watch, setWatch] = useState(false);
@@ -103,6 +109,7 @@ const MovieInfo = (movieID2) => {
       alert('Please log in to save a movie');
     }
   };
+  console.log(movie)
   return (
     <div className='max-w-full h-[1000px] text-white'>
       <div className='w-full h-full'>
@@ -112,6 +119,7 @@ const MovieInfo = (movieID2) => {
           src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`} 
           alt={movie?.title}
         />
+<<<<<<< HEAD
         <div className='absolute w-full top-[70px] md:p-8'>
           <div className='flex flex-col'>
             <div className='flex justify-end items-end justify-items-end'>
@@ -198,6 +206,48 @@ const MovieInfo = (movieID2) => {
                 </div>
               </div>
             </div>
+=======
+        <div className='absolute w-full top-[20%] p-4 md:p-8 flex flex-row-reverse'>
+
+        <div className='w-[100px] h-[100px] bg-white/70 text-pink-500 text-3xl border-red-700 border-solid border-[5px] rounded-full flex justify-center items-center px-[40px] py-[40px]'>
+            <p>{movie?.vote_average.toFixed(1)}</p>
+        </div>
+
+          <div className='bg-gray-400/20 mr-[750px] pl-6 pr-6 pt-4 pb-4'>
+            <h1 className='text-3xl md:text-5xl font-bold underline underline-offset-8'>{movie?.title}</h1>
+            <div className='mb-8 mt-10'>
+                <button onClick={watchLater}>
+                  {push ? (
+                  <p className='border bg-pink-500 text-white border-pink-500 py-2 px-5'>Added</p>
+                  ) :(
+                  <p  className='border border-[2px] text-white border-pink-500 py-2 px-5'>Watch Later</p>
+                  )}
+                </button>
+                <button className='top-[25%] px-4'>
+                  <p onClick={saveShow} >
+                  {like ? (
+                    <AiTwotoneLike className=' h-8 w-8 top-4 left-4 text-pink-500 sm:inline' />
+              
+                  ) : ( 
+                    <BiLike className=' h-8 w-8 top-4 left-4 sm:inline' />
+                  )}
+
+                  </p> 
+                </button>
+                <button className='top-[25%] px-4'>
+                  <p onClick={unlikeShows} >
+                    {notlike ? (
+                      <AiTwotoneDislike className='h-8 w-8 top-4 left-8 text-pink-500 sm:inline' />
+                    
+                    ) : (
+                      <BiDislike className='h-8 w-8 top-4 left-8 sm:inline ' />
+                    )}
+                  </p> 
+                </button> 
+                <p  onClick={() => navigate("/Recommendations", { state: {name:movie?.title, id: movie?.id } })} className='w-[50px] border border-[2px] text-white border-pink-500 py-2 px-5'>Recommend</p>
+
+              </div>
+>>>>>>> 8e2e0ddc918faaf02bccdf9abea2db41db4203c0
         
           
 
@@ -244,6 +294,7 @@ const MovieInfo = (movieID2) => {
                   </div>
                 </div>
 
+<<<<<<< HEAD
                 <div className='flex flex-col w-[600px] pb-[20px] pt-[10px] pr-[40px] pl-[40px]'>
                   <p className='text-pink-500 text-[32px] leading-loose flex justify-center underline underline-offset-4'>Plot: </p>
                   <p className='flex justify-center'>
@@ -257,6 +308,17 @@ const MovieInfo = (movieID2) => {
             </div>
 
         
+=======
+          <div className='flex gap-5' >
+            <Platforms movie={movieID2.movieID2}/>
+          </div>
+          </div>
+          <div>
+        </div>
+        <p  onClick={() => navigate("/Recommendations", { state: {name:movie?.title, id: movie?.id } })} className='white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center'>
+            {movie?.title}
+          </p>
+>>>>>>> 8e2e0ddc918faaf02bccdf9abea2db41db4203c0
         </div>
       </div>
     </div>
