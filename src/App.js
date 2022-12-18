@@ -13,6 +13,8 @@ import Watchlater from"./pages/Watchlater";
 import Search from "./pages/Search";
 import Account2 from "./pages/Account2";
 import AdvancedSearchResults from "./pages/AdvancedSearchResults";
+import Modal from "./components/Modal";
+import Modal2 from "./components/Modal2";
 
 
 function App() {
@@ -33,8 +35,8 @@ function App() {
         <Route path='/Search' element = {<Search />} />
         <Route path='/Account2' element = {<Account2 />} />
         <Route path='/AdvancedSearchResults' element = {<AdvancedSearchResults />} />
-
-
+        <Route path='/Modal' element = {<Modal />} />
+        <Route path='/Modal2' element = {<Modal2 />} />
 
     </Routes>
     </AuthContextProvider>

@@ -8,10 +8,11 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Search = () => {
-  var searchUrl="https://api.themoviedb.org/3/discover/movie?api_key="+requests.key+'&page=1&include_adult=false'
+  var pageNumber=1
+  var searchUrl="https://api.themoviedb.org/3/discover/movie?api_key="+requests.key+'&include_adult=false'+'&page='+pageNumber
   const [selectedGenre, setSelectedGenre] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState([]);
-  const [selectedAge, setSelectedAge] = useState([]);
+  // const [selectedAge, setSelectedAge] = useState([]);
   const [minYearValue, setminYearValue] = React.useState("");
   const [maxYearValue, setmaxYearValue] = React.useState("");
   const [minTimeValue, setminTimeValue] = React.useState("");
@@ -22,9 +23,7 @@ const Search = () => {
   
   const submitButton = (event) => {
     event.preventDefault();
-    // if(selectedAge.some(e => e.value === 'kid')& !selectedAge.some(e => e.value === 'adult')){
-    //   searchUrl = searchUrl+'&include_adult=false'
-    // }
+
     if(minTimeValue.length>0){
       searchUrl = searchUrl+'&with_runtime.gte='+minTimeValue
     }
@@ -44,19 +43,18 @@ const Search = () => {
       searchUrl = searchUrl+'&vote_average.lte='+maxScoreValue
     }
     if(selectedLanguage.length>0){
-      console.log(selectedLanguage)
       selectedLanguage.map(item => {
         searchUrl = searchUrl+'&with_original_language='+item.value
 
       })
     }
     if(selectedGenre.length>0){
-      console.log(selectedGenre)
+      searchUrl = searchUrl+'&with_genres='
       selectedGenre.map(item => {
-        searchUrl = searchUrl+'&with_genres='+item.value
+        searchUrl = searchUrl+item.value+','
       })
     }
-    navigate("/AdvancedSearchResults", { state: { url: searchUrl } })
+    navigate("/AdvancedSearchResults", { state: { url: searchUrl, pageNumber: pageNumber } })
   }
 
   const onChangeYear = event => {
@@ -81,9 +79,9 @@ const Search = () => {
   };
 
   return (
-    <div className='pt-24 pb-10 w-full h-full'>
-      <div className='mt-[30px] mx-[400px]' style={{boxShadow: "rgba(240, 46, 170, 0.17) 0px 23px 25px 0px inset, rgba(240, 46, 170, 0.15) 0px 36px 30px 0px inset, rgba(240, 46, 170, 0.1) 0px 79px 40px 0px inset, rgba(240, 46, 170, 0.17) 0px -23px 25px 0px inset, rgba(240, 46, 170, 0.15) 0px -36px 30px 0px inset, rgba(240, 46, 170, 0.1) 0px -79px 40px 0px inset"}}>
-        <div className='flex flex-col items-center justify-items-center mx-[150px] py-[70px] gap-2'>
+    <div className='pt-[130px] pb-10 w-full h-full'>
+      <div className='sm:mx-[20px] md:mx-[90px] lg:mx-[180px] xl:mx-[310px]' style={{boxShadow: "rgba(240, 46, 170, 0.17) 0px 23px 25px 0px inset, rgba(240, 46, 170, 0.15) 0px 36px 30px 0px inset, rgba(240, 46, 170, 0.1) 0px 79px 40px 0px inset, rgba(240, 46, 170, 0.17) 0px -23px 25px 0px inset, rgba(240, 46, 170, 0.15) 0px -36px 30px 0px inset, rgba(240, 46, 170, 0.1) 0px -79px 40px 0px inset"}}>
+        <div className='flex flex-col items-center justify-items-center py-[70px] gap-2'>
           <h1 className='text-white font-medium text-xl'>Select Genre(s)</h1>
           <MultiSelect
             className="text-pink-500 w-[400px] h-[50px]"
@@ -144,7 +142,7 @@ const Search = () => {
               value={maxYearValue}
             />
           </div>
-          <h1 className='text-white pt-6 font-medium text-xl'>Select Age Filter</h1>
+          {/* <h1 className='text-white pt-6 font-medium text-xl'>Select Age Filter</h1>
           <MultiSelect
             className="text-pink-500 w-[400px] h-[50px]"
             hasSelectAll={false}
@@ -153,7 +151,7 @@ const Search = () => {
             onChange={setSelectedAge}
             labelledBy="Select Age"
             disableSearch={true}
-          />
+          /> */}
           <div className='flex flex-row items-center justify-items-center pt-6 gap-3'>
             <h1 className='text-white font-medium text-base text-center'>Min IMDB Score</h1>
             <input
@@ -178,6 +176,7 @@ const Search = () => {
           <button onClick={submitButton} className='bg-pink-500 px-[50px] py-[15px] mt-[50px] mb-[15px] rounded font-bold text-black hover:text-white hover:bg-pink-800'>
             Submit
           </button>
+          
         </div>
       </div>
     </div>
