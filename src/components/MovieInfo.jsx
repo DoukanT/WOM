@@ -102,7 +102,6 @@ const MovieInfo = (movieID2) => {
       alert('Please log in to save a movie');
     }
   };
-  console.log(movie)
   return (
     <div className='max-w-full h-[1000px] text-white'>
       <div className='w-full h-full'>
@@ -123,7 +122,6 @@ const MovieInfo = (movieID2) => {
               </div>
             </div>
 
-            {/* <div className='bg-gray-400/20 mr-[750px] pl-6 pr-6 pt-4 pb-4'> */}
             <div className='pl-6 pr-6 pt-5 mb-[50px] flex flex-row justify-between'>
               <h1 className='text-[45px] font-bold flex justify-start underline underline-offset-8'>{movie?.title}</h1>
               <div className='flex justify-end items-end justify-items-end'>
