@@ -114,7 +114,7 @@ const MovieInfo = (movieID2) => {
 
         <div className='absolute w-full top-[70px] md:p-8'>
           <div className='flex flex-col'>
-            <div className='flex justify-end items-end justify-items-end'>
+            <div className='flex justify-end items-end justify-items-end mr-[25px]'>
               <div className=' w-[90px] h-[90px] bg-white/70 text-pink-500 text-2xl border-red-700 border-solid border-[3px] rounded-full flex justify-center items-center px-[20px] py-[20px]'>
                   <div className='flex flex-col flex justify-center leading-6'>
                     <p>{movie?.vote_average.toFixed(1)}/10</p>
@@ -123,7 +123,10 @@ const MovieInfo = (movieID2) => {
             </div>
 
             <div className='pl-6 pr-6 pt-5 mb-[50px] flex flex-row justify-between'>
-              <h1 className='text-[45px] font-bold flex justify-start underline underline-offset-8'>{movie?.title}</h1>
+              <div className='flex flex-row justify-center items-center gap-[30px]'>
+                <h1 className='text-[45px] font-bold flex justify-start underline underline-offset-8'>{movie?.title}</h1>
+                <Platforms movie={movieID2.movieID2}/>
+              </div>
               <div className='flex justify-end items-end justify-items-end'>
                   
                   <button className='pb-[8px] px-2'>
@@ -197,6 +200,12 @@ const MovieInfo = (movieID2) => {
                     <p><CircleIcon sx={{ fontSize: 7 }}/>&nbsp;{cast?.cast[2]?.name}</p>
                   </div>
                 </div>
+
+                {/* <div className='flex flex-col pb-[20px] pt-[10px] pr-[40px] pl-[40px]' >
+                <p className='text-pink-500 text-[28px] leading-loose flex justify-center underline underline-offset-4'>Available on:</p>
+                  <Platforms movie={movieID2.movieID2}/>
+                </div> */}
+
               </div>
             </div>
 
@@ -239,10 +248,10 @@ const MovieInfo = (movieID2) => {
                 </div>
               </div>
             </div> */}
-
+{/* 
             <div className='flex gap-5' >
               <Platforms movie={movieID2.movieID2}/>
-            </div>
+            </div> */}
           </div>
         </div>
       </div> 
