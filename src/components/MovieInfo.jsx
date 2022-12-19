@@ -127,15 +127,8 @@ const MovieInfo = (movieID2) => {
             <div className='pl-6 pr-6 pt-5 mb-[50px] flex flex-row justify-between'>
               <h1 className='text-[45px] font-bold flex justify-start underline underline-offset-8'>{movie?.title}</h1>
               <div className='flex justify-end items-end justify-items-end'>
-                  <button onClick={watchLater}>
-                    {push ? (
-                    <p className='border bg-pink-500 text-white border-pink-500 py-2 px-5'>Added</p>
-                    ) :(
-                    <p  className='border border-[2px] text-white border-pink-500 py-2 px-5'>Watch Later</p>
-                    )}
-                  </button>
-
-                  <button className='top-[25%] px-4'>
+                  
+                  <button className='pb-[8px] px-2'>
                     <p onClick={saveShow} >
                     {like ? (
                       <AiTwotoneLike className=' h-8 w-8 top-4 left-4 text-pink-500 sm:inline' />
@@ -146,7 +139,7 @@ const MovieInfo = (movieID2) => {
                     </p> 
                   </button>
 
-                  <button className='top-[25%] px-4'>
+                  <button className='pb-[8px] px-6'>
                     <p onClick={unlikeShows} >
                       {notlike ? (
                         <AiTwotoneDislike className='h-8 w-8 top-4 left-8 text-pink-500 sm:inline' />
@@ -157,9 +150,18 @@ const MovieInfo = (movieID2) => {
                     </p> 
                   </button> 
                   
-                  <button onClick={() => navigate("/Recommendations", { state: {name:movie?.title, id: movie?.id } })} >
-                    <p className='border border-[2px] text-white border-pink-500 py-2 px-5'>Similar Movies</p>
+                  <button onClick={watchLater}>
+                    {push ? (
+                    <p className='border bg-pink-500 text-white border-pink-500 py-2 px-5'>Added</p>
+                    ) :(
+                    <p  className='border border-[2px] text-white border-pink-500 py-2 px-5'>Watch Later</p>
+                    )}
                   </button>
+
+                  <button onClick={() => navigate("/Recommendations", { state: {name:movie?.title, id: movie?.id } })} >
+                    <p className='border border-[2px] text-white border-pink-500 py-2 px-5 ml-[20px]'>Similar Movies</p>
+                  </button>
+
                 </div>
               </div>
               
