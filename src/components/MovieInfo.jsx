@@ -1,13 +1,12 @@
 import React from 'react'
-import { useEffect } from 'react';
-import { useState } from 'react'
+import { useEffect, useState} from 'react';
 import requests from '../Requests';
 import axios from 'axios';
 import { UserAuth } from '../context/AuthContext';
 import { db } from '../firebase';
-import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
-import {  AiTwotoneLike, AiTwotoneDislike} from 'react-icons/ai';
-import {  BiLike, BiDislike} from 'react-icons/bi';
+import { arrayUnion, doc, updateDoc, onSnapshot } from 'firebase/firestore';
+import { AiTwotoneLike, AiTwotoneDislike} from 'react-icons/ai';
+import { BiLike, BiDislike} from 'react-icons/bi';
 import Platforms from '../components/Platforms'
 import CircleIcon from '@mui/icons-material/Circle';
 import { useNavigate } from 'react-router-dom';
@@ -17,10 +16,10 @@ import { useNavigate } from 'react-router-dom';
 const MovieInfo = (movieID2) => {  
   const [push, setPush] = useState(false);
   const [watch, setWatch] = useState(false);
-  const [like, setLike] = useState(false);
+  const [liked, setLiked] = useState(false);
   const [saved, setSaved] = useState(false);
-  const [notlike, setNotlike] = useState(false);
   const [unliked, setUnliked] = useState(false);
+  const [notliked, setNotliked] = useState(false);
   const navigate = useNavigate();
 
   const { user } = UserAuth();
@@ -29,6 +28,8 @@ const MovieInfo = (movieID2) => {
   const requestMovie="https://api.themoviedb.org/3/movie/"+movieID2.movieID2+"?api_key="+requests.key+"&language=en-US"
   const [cast, setCast] = useState([]);
   const requestCast= "https://api.themoviedb.org/3/movie/"+movieID2.movieID2+"/credits?api_key="+requests.key+"&language=en-US"
+  const [movies3, setMovies3] = useState([]);
+
 
   useEffect(() => {
     axios.get(requestMovie).then((response) => {
@@ -40,6 +41,57 @@ const MovieInfo = (movieID2) => {
       setCast(response.data);
     });
   }, [requestCast]);
+
+  useEffect(() => {
+    const storedValue = localStorage.getItem(`laterState_${movie.id}`);
+    if (storedValue) {
+      setPush(JSON.parse(storedValue));
+    }
+  }, [movie.id]);
+
+  useEffect(() => {
+    localStorage.setItem(`laterState_${movie.id}`, JSON.stringify(push));
+  }, [movie.id, push]);
+
+  useEffect(() => {
+    const storedValue = localStorage.getItem(`likeState_${movie.id}`);
+    if (storedValue) {
+      setLiked(JSON.parse(storedValue));
+    }
+  }, [movie]);
+
+  useEffect(() => {
+    localStorage.setItem(`likeState_${movie.id}`, JSON.stringify(liked));
+  }, [movie.id, liked]);
+
+  useEffect(() => {
+    const storedValue = localStorage.getItem(`unlikeState_${movie.id}`);
+    if (storedValue) {
+      setUnliked(JSON.parse(storedValue));
+    }
+  }, [movie]);
+
+  useEffect(() => {
+    localStorage.setItem(`unlikeState_${movie.id}`, JSON.stringify(unliked));
+  }, [movie.id, unliked]);
+
+  useEffect(() => {
+    onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
+      setMovies3(doc.data()?.watchedLater);
+    });
+  }, [user?.email]);
+  
+  useEffect(() => {
+    onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
+      setMovies3(doc.data()?.savedShows);
+    });
+  }, [user?.email]);
+
+  useEffect(() => {
+    onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
+      setMovies3(doc.data()?.unlikedShows);
+    });
+  }, [user?.email]); 
 
   const truncateString = (str, num) => {
     if (str?.length > num) {
@@ -55,9 +107,11 @@ const MovieInfo = (movieID2) => {
     return null
   }
 
+
   const watchLater = async () => {
     if (user?.email) {
       setPush(!push);
+      localStorage.setItem(`laterState_${movie.id}`, !push)
       setWatch(true);
       await updateDoc(movieID, {
         watchedLater: arrayUnion({
@@ -71,15 +125,32 @@ const MovieInfo = (movieID2) => {
     }
   };
 
+    const movieRef = doc(db, 'users', `${user?.email}`)
+    const deleteShow2 = async (passedID) => {
+        setPush(!push);
+      try {
+        const result = movies3.filter((movie) => movie.id !== passedID)
+        await updateDoc(movieRef, {
+            watchedLater: result
+        })
+      } catch (error) {
+          console.log(error)
+      }
+  }
+
+
   const saveShow = async () => {
     if (user?.email) {
-      setLike(!like);
+      setLiked(!liked);
+      localStorage.setItem(`likeState_${movie.id}`, !liked)
       setSaved(true);
       await updateDoc(movieID, {
         savedShows: arrayUnion({
           id: movie.id,
           title: movie.title,
           img: movie.backdrop_path,
+          genre: movie.genres[0].id,
+          actor: cast.cast[0].id,
         }),
       });
     } else {
@@ -87,10 +158,24 @@ const MovieInfo = (movieID2) => {
     }
   };
 
+  const movieRef2 = doc(db, 'users', `${user?.email}`)
+  const deleteShow = async (passedID) => {
+    setLiked(!liked);
+  try {
+    const result = movies3.filter((movie) => movie.id !== passedID)
+    await updateDoc(movieRef2, {
+      savedShows: result
+    })
+  } catch (error) {
+      console.log(error)
+  }
+}
+
   const unlikeShows = async () => {
     if (user?.email) {
-      setNotlike(!notlike);
-      setUnliked(true);
+      setUnliked(!unliked);
+      localStorage.setItem(`unlikeState_${movie.id}`, !unliked)
+      setNotliked(true);
       await updateDoc(movieID, {
         unlikedShows: arrayUnion({
           id: movie.id,
@@ -102,6 +187,20 @@ const MovieInfo = (movieID2) => {
       alert('Please log in to save a movie');
     }
   };
+
+  const movieRef3 = doc(db, 'users', `${user?.email}`)
+  const deleteShow3 = async (passedID) => {
+    setUnliked(!unliked);
+  try {
+    const result = movies3.filter((movie) => movie.id !== passedID)
+    await updateDoc(movieRef3, {
+      unlikedShows: result
+    })
+  } catch (error) {
+      console.log(error)
+  }
+}
+
   return (
     <div className='max-w-full h-[1000px] text-white'>
       <div className='w-full h-full'>
@@ -111,6 +210,8 @@ const MovieInfo = (movieID2) => {
           src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`} 
           alt={movie?.title}
         />
+
+        
 
         <div className='absolute w-full top-[70px] md:p-8'>
           <div className='flex flex-col'>
@@ -127,37 +228,42 @@ const MovieInfo = (movieID2) => {
                 <h1 className='text-[45px] font-bold flex justify-start underline underline-offset-8'>{movie?.title}</h1>
                 <Platforms movie={movieID2.movieID2}/>
               </div>
+
               <div className='flex justify-end items-end justify-items-end'>
                   
                   <button className='pb-[8px] px-2'>
-                    <p onClick={saveShow} >
-                    {like ? (
-                      <AiTwotoneLike className=' h-8 w-8 top-4 left-4 text-pink-500 sm:inline' />
+                    <p>
+                    {liked ? (
+                      <AiTwotoneLike  onClick={()=> deleteShow(movie.id)} className=' h-8 w-8 top-4 left-4 text-pink-500 sm:inline' />
                 
                     ) : ( 
-                      <BiLike className=' h-8 w-8 top-4 left-4 sm:inline' />
+                     <BiLike onClick={saveShow} className=' h-8 w-8 top-4 left-4 sm:inline' />
                     )}
                     </p> 
                   </button>
 
                   <button className='pb-[8px] px-6'>
-                    <p onClick={unlikeShows} >
-                      {notlike ? (
-                        <AiTwotoneDislike className='h-8 w-8 top-4 left-8 text-pink-500 sm:inline' />
+                    <p>
+                      {unliked ? (
+                        <AiTwotoneDislike onClick={()=> deleteShow3(movie.id)} className='h-8 w-8 top-4 left-8 text-pink-500 sm:inline' />
                       
                       ) : (
-                        <BiDislike className='h-8 w-8 top-4 left-8 sm:inline ' />
+                        <BiDislike onClick={unlikeShows} className='h-8 w-8 top-4 left-8 sm:inline ' />
                       )}
                     </p> 
                   </button> 
                   
-                  <button onClick={watchLater}>
+                  <button >
+                  <p >
                     {push ? (
-                    <p className='border bg-pink-500 text-white border-pink-500 py-2 px-5'>Added</p>
+                    <p onClick={()=> deleteShow2(movie.id)} className='border bg-pink-500 text-white border-pink-500 py-2 px-5'>Added</p>
                     ) :(
-                    <p  className='border border-[2px] text-white border-pink-500 py-2 px-5'>Watch Later</p>
+                    <p onClick={watchLater} className='border border-[2px] text-white border-pink-500 py-2 px-5'>Watch Later</p>
                     )}
+                  </p>
+
                   </button>
+                 
 
                   <button onClick={() => navigate("/Recommendations", { state: {name:movie?.title, id: movie?.id } })} >
                     <p className='border border-[2px] text-white border-pink-500 py-2 px-5 ml-[20px]'>Similar Movies</p>
@@ -180,6 +286,7 @@ const MovieInfo = (movieID2) => {
                     <p key={id}><CircleIcon sx={{ fontSize: 7 }}/>&nbsp;{name}&nbsp;</p>
                     ))}
                     </div>
+              
                 </div>
 
                 <div className='flex flex-col pb-[20px] pt-[10px] pr-[40px] pl-[40px]'>

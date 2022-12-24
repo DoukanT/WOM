@@ -7,6 +7,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 
 
+
 const SavedShows = () => {
     const [movies, setMovies] = useState([]);
     const { user } = UserAuth();
@@ -26,6 +27,8 @@ const SavedShows = () => {
       setMovies(doc.data()?.savedShows);
     });
   }, [user?.email]);
+
+ 
 
   const movieRef = doc(db, 'users', `${user?.email}`)
   const deleteShow = async (passedID) => {
@@ -66,9 +69,13 @@ const SavedShows = () => {
              {item?.title}
            </p>
          <p onClick={()=> deleteShow(item.id)} className='absolute text-gray-300 top-4 right-4'><AiOutlineClose /></p>
-         </div>  
+         
+         </div> 
+         {item?.genre}
+         {item?.actor}
        </div>
        ))}
+
      </div>
 
      <MdChevronRight
