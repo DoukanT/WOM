@@ -55,7 +55,7 @@ const Navbar = () => {
           {user?.email ?(
             <ul className='hidden space-x-6 md:flex md:justify-center md:items-center'>
               <li className='headerLink text-white text-base'><Link to="/">Home</Link></li>
-              <li className='text-center headerLink text-white text-sm'><Link to="/Recommendation">Movie Recommendation</Link></li>
+              <li className='text-center headerLink text-white text-sm'><Link to="/Recommendations">Movie Recommendation</Link></li>
               <li className='text-center headerLink text-white text-base'><Link to='/Account'>My List</Link></li>
               <li className='text-center headerLink text-white text-base'><Link to='/Watchlater'>Watch Later</Link></li>
               <li className='text-center headerLink text-white text-base'><Link to="/Search">Advanced Search</Link></li>
@@ -64,7 +64,7 @@ const Navbar = () => {
             ) : (
             <ul className='hidden space-x-6 md:flex md:justify-center md:items-center'>
               <li className='headerLink text-white text-base'><Link to="/">Home</Link></li>
-              <li className='text-center headerLink text-white text-sm'><Link to="/Recommendation">Movie Recommendation</Link></li>
+              <li className='text-center headerLink text-white text-sm'><Link to="/Recommendations">Movie Recommendation</Link></li>
 
               <li className='text-center headerLink text-white text-base'><Link to="/Login">My List</Link></li>
               <li className='text-center headerLink text-white text-base'><Link to="/Login">Watch Later</Link></li>
@@ -76,14 +76,14 @@ const Navbar = () => {
           {user?.email ?(
             <ul className='md:hidden space-x-5 flex justify-center items-center'>
               <li className='headerLink text-white text-sm'><Link to="/">Home</Link></li>
-              <li className='text-center headerLink text-white text-sm'><Link to="/Recommendation">Movie Recommendation</Link></li>
+              <li className='text-center headerLink text-white text-sm'><Link to="/Recommendations">Movie Recommendation</Link></li>
               <li className='text-center headerLink text-white text-sm'><Link to="/Search">Advanced Search</Link></li>
             </ul>
             
             ) : (
             <ul className='md:hidden space-x-5 flex justify-center items-center'>
               <li className='headerLink text-white text-sm'><Link to="/">Home</Link></li>
-              <li className='text-center headerLink text-white text-sm'><Link to="/Recommendation">Movie Recommendation</Link></li>
+              <li className='text-center headerLink text-white text-sm'><Link to="/Recommendations">Movie Recommendation</Link></li>
               <li className='text-center headerLink text-white text-sm'><Link to="/Search">Advanced Search</Link></li>
             </ul>
             )

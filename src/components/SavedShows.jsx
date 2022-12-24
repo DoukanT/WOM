@@ -38,8 +38,7 @@ const SavedShows = () => {
           console.log(error)
       }
   }
-
-
+  console.log(movies)
   return (
     <>  
     <h2 className='text-white font-bold md:text-xl p-4'>Like</h2>

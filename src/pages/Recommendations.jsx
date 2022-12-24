@@ -1,34 +1,18 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import requests from '../Requests';
-import axios from 'axios';
-import Movie from '../components/Movie';
+import Row from '../components/Row'
 
 const Recommendations = () => {
-  const data = useLocation();
-  const movieID= data.state.id;
-  const movieTitle= data.state.name;
-
-  console.log(data)
-  const [movies, setMovies] = useState([]);
-
-  const fetchURL = "https://api.themoviedb.org/3/movie/"+movieID+"/similar?api_key="+requests.key+"&page=1"
-
-  useEffect(() => {
-    axios.get(fetchURL).then((response) => {
-      setMovies(response.data.results);
-    });
-  }, [fetchURL]);
+  var genreUrl='https://api.themoviedb.org/3/discover/movie?api_key='+requests.key+'&sort_by=popularity.desc&include_adult=false&page=1&with_genres=36'
+  var castUrl='https://api.themoviedb.org/3/discover/movie?api_key='+requests.key+'&sort_by=popularity.desc&include_adult=false&page=1&with_cast=287'
+  
   return (
-    <div className='w-100% h-auto ml-3'>
-      <h2 className='pt-28 text-white font-bold md:text-xl p-4'>Similar movies to '{movieTitle}'</h2>
-      <div className='flex flex-wrap scroll-smooth scrollbar-hide relative'>
-      {movies.map((item, id) => (
-        <Movie key={id} item={item} />
-      ))}
-      </div>
+    <>
+    <div className='pt-24'>
+      <Row rowID='1' title='You like action' fetchURL={genreUrl} />
+      <Row rowID='2' title='You love Brad Pitt' fetchURL={castUrl} />
     </div>
+    </>
   )
 }
 

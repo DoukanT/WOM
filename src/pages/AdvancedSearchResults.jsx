@@ -9,7 +9,6 @@ const AdvancedSearchResults = () => {
   var url = data.state.url;
   var pageNumber=data.state.pageNumber
   const navigate = useNavigate();
-  console.log(url)
 
   const [movies, setMovies] = useState([]);
 
