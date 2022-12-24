@@ -16,6 +16,7 @@ import AdvancedSearchResults from "./pages/AdvancedSearchResults";
 import Modal from "./components/Modal";
 import Modal2 from "./components/Modal2";
 import Recommendations from "./pages/Recommendations";
+import SimilarsPage from "./pages/SimilarsPage";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
     <Routes>
        <Route path='/' element={<Home />} />
        <Route path='/Recommendations' element={<Recommendations />} />
+       <Route path='/SimilarsPage' element={<SimilarsPage />} />
        <Route path='/Login' element={<Login />} />
        <Route path='/Forget' element={<Forget />} />
         <Route path='/Signup' element={<Signup />} />

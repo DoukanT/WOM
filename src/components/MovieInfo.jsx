@@ -11,8 +11,6 @@ import Platforms from '../components/Platforms'
 import CircleIcon from '@mui/icons-material/Circle';
 import { useNavigate } from 'react-router-dom';
 
-
-
 const MovieInfo = (movieID2) => {  
   const [push, setPush] = useState(false);
   const [watch, setWatch] = useState(false);
@@ -265,7 +263,7 @@ const MovieInfo = (movieID2) => {
                   </button>
                  
 
-                  <button onClick={() => navigate("/Recommendations", { state: {name:movie?.title, id: movie?.id } })} >
+                  <button onClick={() => navigate("/SimilarsPage", { state: {name:movie?.title, id: movie?.id } })} >
                     <p className='border border-[2px] text-white border-pink-500 py-2 px-5 ml-[20px]'>Similar Movies</p>
                   </button>
 
@@ -307,58 +305,8 @@ const MovieInfo = (movieID2) => {
                     <p><CircleIcon sx={{ fontSize: 7 }}/>&nbsp;{cast?.cast[2]?.name}</p>
                   </div>
                 </div>
-
-                {/* <div className='flex flex-col pb-[20px] pt-[10px] pr-[40px] pl-[40px]' >
-                <p className='text-pink-500 text-[28px] leading-loose flex justify-center underline underline-offset-4'>Available on:</p>
-                  <Platforms movie={movieID2.movieID2}/>
-                </div> */}
-
               </div>
             </div>
-
-
-            {/* <div className='flex flex-col gap-[45px] w-full mt-[50px] bg-gray-700/60 pt-[30px] pb-[30px]'>
-              <div className='flex flex-row justify-evenly'>
-                <div className='flex flex-col pb-[20px] pt-[10px] pr-[40px] pl-[40px]'>
-                <p className='text-pink-500 text-[32px] leading-loose flex justify-center underline underline-offset-4' >Genres: </p>
-                  <div className='flex flex-row'>
-                  {movie?.genres.map(({ id, name }) => (
-                  <p key={id}><CircleIcon sx={{ fontSize: 7 }}/>&nbsp;{name}&nbsp;</p>
-                  ))}
-                  </div>
-                </div>
-
-                <div className='flex flex-col pb-[20px] pt-[10px] pr-[40px] pl-[40px]'>
-                  <p className='text-pink-500 text-[32px] leading-loose flex justify-center underline underline-offset-4' >Released: </p>
-                  <p className='flex justify-center'>{movie?.release_date}</p>
-                </div>
-
-                <div className='flex flex-col pb-[20px] pt-[10px] pr-[40px] pl-[40px]'>
-                  <p className='text-pink-500 text-[32px] leading-loose flex justify-center underline underline-offset-4'>Runtime:</p>
-                  <p className='flex justify-center'>{movie?.runtime} minutes</p>
-                </div>
-              </div>
-            
-              <div className='flex flex-row justify-evenly'>
-                <div className='flex flex-col pb-[20px] pt-[10px] pr-[40px] pl-[40px]'>
-                  <p className='text-pink-500 text-[32px] leading-loose flex justify-center underline underline-offset-4'>Actors: </p>
-                  <div className='flex flex-row'> 
-                    <p><CircleIcon sx={{ fontSize: 7 }}/>&nbsp; {cast?.cast[0]?.name} &nbsp;</p>
-                    <p><CircleIcon sx={{ fontSize: 7 }}/>&nbsp;{cast?.cast[1]?.name} &nbsp;</p>
-                    <p><CircleIcon sx={{ fontSize: 7 }}/>&nbsp;{cast?.cast[2]?.name}</p>
-                  </div>
-                </div>
-                <div className='flex flex-col w-[600px] pb-[20px] pt-[10px] pr-[40px] pl-[40px]'>
-                  <p className='text-pink-500 text-[32px] leading-loose flex justify-center underline underline-offset-4'>Plot: </p>
-                  <p className='flex justify-center'>
-                  {truncateString(movie?.overview)} </p>
-                </div>
-              </div>
-            </div> */}
-{/* 
-            <div className='flex gap-5' >
-              <Platforms movie={movieID2.movieID2}/>
-            </div> */}
           </div>
         </div>
       </div> 

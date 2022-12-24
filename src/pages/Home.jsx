@@ -5,7 +5,6 @@ import requests from '../Requests'
 const Home = () => {
   return (
     <>
-
     <div className='pt-24'>
         <Row rowID='1' title='Popular' fetchURL={requests.requestPopular} />
         <Row rowID='2' title='Trending' fetchURL={requests.requestTrending} />
