@@ -11,46 +11,48 @@ import Platforms from '../components/Platforms'
 import CircleIcon from '@mui/icons-material/Circle';
 import { useNavigate } from 'react-router-dom';
 
-const MovieInfo = (movieID2) => {  
-  const [push, setPush] = useState(false);
-  const [watch, setWatch] = useState(false);
-  const [liked, setLiked] = useState(false);
-  const [saved, setSaved] = useState(false);
-  const [unliked, setUnliked] = useState(false);
-  const [notliked, setNotliked] = useState(false);
+const MovieInfo = (movieID2) => {
   const navigate = useNavigate();
-
   const { user } = UserAuth();
-  const movieID = doc(db, 'users', `${user?.email}`);
   const [movie, setMovies] = useState([]);
-  const requestMovie="https://api.themoviedb.org/3/movie/"+movieID2.movieID2+"?api_key="+requests.key+"&language=en-US"
   const [cast, setCast] = useState([]);
+  const requestMovie="https://api.themoviedb.org/3/movie/"+movieID2.movieID2+"?api_key="+requests.key+"&language=en-US"
   const requestCast= "https://api.themoviedb.org/3/movie/"+movieID2.movieID2+"/credits?api_key="+requests.key+"&language=en-US"
-  const [movies3, setMovies3] = useState([]);
-
-
   useEffect(() => {
     axios.get(requestMovie).then((response) => {
       setMovies(response.data);
     });
   }, [requestMovie]);
+  
   useEffect(() => {
     axios.get(requestCast).then((response) => {
       setCast(response.data);
     });
   }, [requestCast]);
 
-  useEffect(() => {
-    const storedValue = localStorage.getItem(`laterState_${movie.id}`);
-    if (storedValue) {
-      setPush(JSON.parse(storedValue));
-    }
-  }, [movie.id]);
+  const [liked, setLiked] = useState(false);
+  const [disliked, setDisliked] = useState(false);
+  const [later, setLater] = useState(false);
+  const [likedList, setlikedList] = useState([]);
+  const [dislikedList, setdislikedList] = useState([]);
+  const [laterList, setlaterList] = useState([]);
 
   useEffect(() => {
-    localStorage.setItem(`laterState_${movie.id}`, JSON.stringify(push));
-  }, [movie.id, push]);
-
+    onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
+      setlikedList(doc.data()?.savedShows);
+    });
+  }, [user?.email]);
+  useEffect(() => {
+    onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
+      setdislikedList(doc.data()?.unlikedShows);
+    });
+  }, [user?.email]);
+  useEffect(() => {
+    onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
+      setlaterList(doc.data()?.watchedLater);
+    });
+  }, [user?.email]);
+  //like
   useEffect(() => {
     const storedValue = localStorage.getItem(`likeState_${movie.id}`);
     if (storedValue) {
@@ -61,35 +63,110 @@ const MovieInfo = (movieID2) => {
   useEffect(() => {
     localStorage.setItem(`likeState_${movie.id}`, JSON.stringify(liked));
   }, [movie.id, liked]);
-
+  //dislike
   useEffect(() => {
     const storedValue = localStorage.getItem(`unlikeState_${movie.id}`);
     if (storedValue) {
-      setUnliked(JSON.parse(storedValue));
+      setDisliked(JSON.parse(storedValue));
     }
   }, [movie]);
 
   useEffect(() => {
-    localStorage.setItem(`unlikeState_${movie.id}`, JSON.stringify(unliked));
-  }, [movie.id, unliked]);
+    localStorage.setItem(`unlikeState_${movie.id}`, JSON.stringify(disliked));
+  }, [movie.id, disliked]);
+  //later
+  useEffect(() => {
+    const storedValue = localStorage.getItem(`laterState_${movie.id}`);
+    if (storedValue) {
+      setLater(JSON.parse(storedValue));
+    }
+  }, [movie]);
 
   useEffect(() => {
-    onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
-      setMovies3(doc.data()?.watchedLater);
-    });
-  }, [user?.email]);
-  
-  useEffect(() => {
-    onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
-      setMovies3(doc.data()?.savedShows);
-    });
-  }, [user?.email]);
+    localStorage.setItem(`laterState_${movie.id}`, JSON.stringify(later));
+  }, [movie.id, later]);
 
-  useEffect(() => {
-    onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
-      setMovies3(doc.data()?.unlikedShows);
-    });
-  }, [user?.email]); 
+  const userID = doc(db, 'users', `${user?.email}`);
+
+  console.log(movie)
+  const likeMovie = async () => {
+    if (user?.email) {
+      setLiked(true);
+      await updateDoc(userID, {
+        savedShows: arrayUnion({
+          id: movie.id,
+          title: movie.title,
+          img: movie.backdrop_path,
+          genre: movie.genres[0].id,
+          actor: cast.cast[0].id,
+        }),
+      });
+    } else {
+      alert('Please log in to save a movie');
+    }
+  };
+  const unlikeMovie = async (passedID) => {
+    setLiked(false)
+      try {
+        const result = likedList.filter((movie) => movie.id !== passedID)
+        await updateDoc(userID, {
+            savedShows: result
+        })
+      } catch (error) {
+          console.log(error)
+      }
+  };
+
+  const dislikeMovie = async () => {
+    if (user?.email) {
+      setDisliked(true)
+      await updateDoc(userID, {
+        unlikedShows: arrayUnion({
+          id: movie.id,
+          title: movie.title,
+          img: movie.backdrop_path,
+        }),
+      });
+    } else {
+      alert('Please log in to save a movie');
+    }
+  };
+  const undislikeMovie = async (passedID) => {
+    setDisliked(false)
+    try {
+      const result = dislikedList.filter((movie) => movie.id !== passedID)
+      await updateDoc(userID, {
+          unlikedShows: result
+      })
+    } catch (error) {
+        console.log(error)
+    }
+  };
+  const watchLater = async () => {
+    if (user?.email) {
+      setLater(true)
+      await updateDoc(userID, {
+        watchedLater: arrayUnion({
+          id: movie.id,
+          title: movie.title,
+          img: movie.backdrop_path,
+        }),
+      });
+    } else {
+      alert('Please log in to save a movie');
+    }
+  };
+  const unlaterMovie = async (passedID) => {
+    setLater(false)
+    try {
+      const result = laterList.filter((movie) => movie.id !== passedID)
+      await updateDoc(userID, {
+          watchedLater: result
+      })
+    } catch (error) {
+        console.log(error)
+    }
+  };
 
   const truncateString = (str, num) => {
     if (str?.length > num) {
@@ -104,101 +181,9 @@ const MovieInfo = (movieID2) => {
   if (!cast?.cast) {
     return null
   }
-
-
-  const watchLater = async () => {
-    if (user?.email) {
-      setPush(!push);
-      localStorage.setItem(`laterState_${movie.id}`, !push)
-      setWatch(true);
-      await updateDoc(movieID, {
-        watchedLater: arrayUnion({
-          id: movie.id,
-          title: movie.title,
-          img: movie.backdrop_path,
-        }),
-      });
-    } else {
-      alert('Please log in to save a movie');
-    }
-  };
-
-    const movieRef = doc(db, 'users', `${user?.email}`)
-    const deleteShow2 = async (passedID) => {
-        setPush(!push);
-      try {
-        const result = movies3.filter((movie) => movie.id !== passedID)
-        await updateDoc(movieRef, {
-            watchedLater: result
-        })
-      } catch (error) {
-          console.log(error)
-      }
-  }
-
-
-  const saveShow = async () => {
-    if (user?.email) {
-      setLiked(!liked);
-      localStorage.setItem(`likeState_${movie.id}`, !liked)
-      setSaved(true);
-      await updateDoc(movieID, {
-        savedShows: arrayUnion({
-          id: movie.id,
-          title: movie.title,
-          img: movie.backdrop_path,
-          genre: movie.genres[0].id,
-          actor: cast.cast[0].id,
-        }),
-      });
-    } else {
-      alert('Please log in to save a movie');
-    }
-  };
-
-  const movieRef2 = doc(db, 'users', `${user?.email}`)
-  const deleteShow = async (passedID) => {
-    setLiked(!liked);
-  try {
-    const result = movies3.filter((movie) => movie.id !== passedID)
-    await updateDoc(movieRef2, {
-      savedShows: result
-    })
-  } catch (error) {
-      console.log(error)
-  }
-}
-
-  const unlikeShows = async () => {
-    if (user?.email) {
-      setUnliked(!unliked);
-      localStorage.setItem(`unlikeState_${movie.id}`, !unliked)
-      setNotliked(true);
-      await updateDoc(movieID, {
-        unlikedShows: arrayUnion({
-          id: movie.id,
-          title: movie.title,
-          img: movie.backdrop_path,
-        }),
-      });
-    } else {
-      alert('Please log in to save a movie');
-    }
-  };
-
-  const movieRef3 = doc(db, 'users', `${user?.email}`)
-  const deleteShow3 = async (passedID) => {
-    setUnliked(!unliked);
-  try {
-    const result = movies3.filter((movie) => movie.id !== passedID)
-    await updateDoc(movieRef3, {
-      unlikedShows: result
-    })
-  } catch (error) {
-      console.log(error)
-  }
-}
-
+  
+console.log(likedList)
+console.log(liked+'/'+disliked+'/'+later)
   return (
     <div className='max-w-full h-[1000px] text-white'>
       <div className='w-full h-full'>
@@ -208,8 +193,6 @@ const MovieInfo = (movieID2) => {
           src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`} 
           alt={movie?.title}
         />
-
-        
 
         <div className='absolute w-full top-[70px] md:p-8'>
           <div className='flex flex-col'>
@@ -232,33 +215,33 @@ const MovieInfo = (movieID2) => {
                   <button className='pb-[8px] px-2'>
                     <p>
                     {liked ? (
-                      <AiTwotoneLike  onClick={()=> deleteShow(movie.id)} className=' h-8 w-8 top-4 left-4 text-pink-500 sm:inline' />
+                      <AiTwotoneLike  onClick={()=> unlikeMovie(movie.id)} className=' h-8 w-8 top-4 left-4 text-pink-500 sm:inline' />
                 
                     ) : ( 
-                     <BiLike onClick={saveShow} className=' h-8 w-8 top-4 left-4 sm:inline' />
+                     <BiLike onClick={likeMovie} className=' h-8 w-8 top-4 left-4 sm:inline' />
                     )}
                     </p> 
                   </button>
 
                   <button className='pb-[8px] px-6'>
                     <p>
-                      {unliked ? (
-                        <AiTwotoneDislike onClick={()=> deleteShow3(movie.id)} className='h-8 w-8 top-4 left-8 text-pink-500 sm:inline' />
+                      {disliked ? (
+                        <AiTwotoneDislike onClick={()=> undislikeMovie(movie.id)} className='h-8 w-8 top-4 left-8 text-pink-500 sm:inline' />
                       
                       ) : (
-                        <BiDislike onClick={unlikeShows} className='h-8 w-8 top-4 left-8 sm:inline ' />
+                        <BiDislike onClick={dislikeMovie} className='h-8 w-8 top-4 left-8 sm:inline ' />
                       )}
                     </p> 
                   </button> 
                   
                   <button >
-                  <p >
-                    {push ? (
-                    <p onClick={()=> deleteShow2(movie.id)} className='border bg-pink-500 text-white border-pink-500 py-2 px-5'>Added</p>
+                  <div >
+                    {later ? (
+                    <p onClick={()=> unlaterMovie(movie.id)} className='border bg-pink-500 text-white border-pink-500 py-2 px-5'>Added</p>
                     ) :(
                     <p onClick={watchLater} className='border border-[2px] text-white border-pink-500 py-2 px-5'>Watch Later</p>
                     )}
-                  </p>
+                  </div>
 
                   </button>
                  
@@ -284,7 +267,6 @@ const MovieInfo = (movieID2) => {
                     <p key={id}><CircleIcon sx={{ fontSize: 7 }}/>&nbsp;{name}&nbsp;</p>
                     ))}
                     </div>
-              
                 </div>
 
                 <div className='flex flex-col pb-[20px] pt-[10px] pr-[40px] pl-[40px]'>

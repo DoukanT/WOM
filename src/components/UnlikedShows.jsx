@@ -8,9 +8,14 @@ import { useNavigate } from 'react-router-dom';
 
 const UnlikedShows = () => {
 
-    const [movies, setMovies] = useState([]);
-    const { user } = UserAuth();
-    const navigate = useNavigate();
+  const [dislikedList, setdislikedList] = useState([]);
+  const { user } = UserAuth();
+  const navigate = useNavigate();
+  useEffect(() => {
+      onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
+        setdislikedList(doc.data()?.unlikedShows);
+      });
+  }, [user?.email]);
 
     const slideLeft = () => {
         var slider = document.getElementById('slider');
@@ -21,23 +26,18 @@ const UnlikedShows = () => {
         slider.scrollLeft = slider.scrollLeft + 500;
       };
 
-      useEffect(() => {
-        onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
-          setMovies(doc.data()?.unlikedShows);
-        });
-      }, [user?.email]);
-
-      const movieRef = doc(db, 'users', `${user?.email}`)
-  const deleteShow = async (passedID) => {
-      try {
-        const result = movies.filter((item) => item.id !== passedID)
-        await updateDoc(movieRef, {
-            unlikedShows: result
-        })
-      } catch (error) {
-          console.log(error)
-      }
-  }
+      const userID = doc(db, 'users', `${user?.email}`);
+      const undislikeMovie = async (passedID) => {
+        localStorage.setItem(`unlikeState_${passedID}`, false);
+        try {
+          const result = dislikedList.filter((movie) => movie.id !== passedID)
+          await updateDoc(userID, {
+              unlikedShows: result
+          })
+        } catch (error) {
+            console.log(error)
+        }
+      };
   return (
     <>
     <h2 className='text-white font-bold md:text-xl p-4'>Dislike</h2>
@@ -51,7 +51,7 @@ const UnlikedShows = () => {
       <div
         id={'slider'}
         className='w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative'>
-        {movies.map((item, id) => (
+        {dislikedList.map((item, id) => (
           <div key={id} className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'>
             <img
               className='w-full h-auto block'
@@ -62,7 +62,7 @@ const UnlikedShows = () => {
               <p onClick={() => navigate("/Moviepage", { state: { id: item?.id } })} className='white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center'>
                 {item?.title}
               </p>
-            <p onClick={()=> deleteShow(item.id)} className='absolute text-gray-300 top-4 right-4'><AiOutlineClose /></p>
+            <p onClick={()=> undislikeMovie(item.id)} className='absolute text-gray-300 top-4 right-4'><AiOutlineClose /></p>
             </div>  
           </div>
         ))}

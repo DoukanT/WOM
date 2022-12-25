@@ -6,27 +6,27 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 //tamamlandı
 const WatchedLater = () => {
-    const [movies, setMovies] = useState([]);
-    const { user } = UserAuth();
-    const navigate = useNavigate();
+  const [laterList, setlaterList] = useState([]);
+  const { user } = UserAuth();
+  const navigate = useNavigate();
+  useEffect(() => {
+    onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
+      setlaterList(doc.data()?.watchedLater);
+    });
+  }, [user?.email]);
+  const userID = doc(db, 'users', `${user?.email}`);
 
-      useEffect(() => {
-        onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
-          setMovies(doc.data()?.watchedLater);
-        });
-      }, [user?.email]);
-
-      const movieRef = doc(db, 'users', `${user?.email}`)
-      const deleteShow = async (passedID) => {
-      try {
-        const result = movies.filter((item) => item.id !== passedID)
-        await updateDoc(movieRef, {
-            watchedLater: result
-        })
-      } catch (error) {
-          console.log(error)
-      }
-  }
+  const unlaterMovie = async (passedID) => {
+    localStorage.setItem(`laterState_${passedID}`, false);
+    try {
+      const result = laterList.filter((movie) => movie.id !== passedID)
+      await updateDoc(userID, {
+          watchedLater: result
+      })
+    } catch (error) {
+        console.log(error)
+    }
+  };
 
 
   return (
@@ -34,7 +34,7 @@ const WatchedLater = () => {
       <h2 className='text-white font-bold text-3xl p-6'>Watch Later</h2>
       <div className='relative flex items-center group'>
         <div>
-          {movies.map((item, id) => (
+          {laterList?.map((item, id) => (
           <div key={id} className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'>
             <img
               className='w-full h-auto block'
@@ -45,7 +45,7 @@ const WatchedLater = () => {
             <p onClick={() => navigate("/Moviepage", { state: { id: item?.id } })} className='white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center'>
               {item?.title}
             </p>
-            <p onClick={()=> deleteShow(item.id)} className='absolute text-gray-300 top-4 right-4'><AiOutlineClose /></p>
+            <p onClick={()=> unlaterMovie(item.id)} className='absolute text-gray-300 top-4 right-4'><AiOutlineClose /></p>
           </div> 
         </div>
         ))}

@@ -15,7 +15,7 @@ const Platforms = (movie) => {
         url: 'https://streaming-availability.p.rapidapi.com/get/basic',
         params: {country: 'tr', tmdb_id: 'movie/'+movie.movie},
         headers: {
-            'X-RapidAPI-Key': 'f1702d5df6msh417bb975d7bdd94p19af2ejsna69e628cb9c7',
+            'X-RapidAPI-Key': '1ce39703e5msh6a48dc1323626e2p170493jsna9f1fb203fc0',
             'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com'
         }
         };
