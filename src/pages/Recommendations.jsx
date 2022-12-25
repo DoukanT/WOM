@@ -7,7 +7,7 @@ import { db } from "../firebase";
 import { UserAuth } from "../context/AuthContext";
 
 const Recommendations = () => {
-  const [movies, setMovies] = useState([]);
+  const [list, setMovies] = useState([]);
   const { user } = UserAuth();
 
   useEffect(() => {
@@ -19,26 +19,46 @@ const Recommendations = () => {
   var genreUrl =
     "https://api.themoviedb.org/3/discover/movie?api_key=" +
     requests.key +
-    "&sort_by=popularity.desc&include_adult=false&page=1&with_genres=36";
+    "&sort_by=vote_average.desc&include_adult=false&vote_count.gte=1000&page=1&with_genres=";
   var castUrl =
     "https://api.themoviedb.org/3/discover/movie?api_key=" +
     requests.key +
-    "&sort_by=popularity.desc&include_adult=false&page=1&with_cast=287";
-  console.log(movies);
-  movies?.forEach((movie) => {
-    console.log(movie.title + "+" + movie.actor + "+" + movie.genre);
-  });
-  // for (let index = 0; index < movies.length; index++) {
-  //   console.log(movies[index]?.actor);
-  // }
-  if (!movies) {
+    "&sort_by=vote_average.desc&include_adult=false&vote_count.gte=1000&page=1&with_cast=";
+
+  if (!list) {
     return null;
   }
+  var castTitle = "From the lead role of ";
+  var genreTitle = "Best movies with genre of ";
   return (
     <>
       <div className="pt-24">
-        <Row rowID="1" title="You like action" fetchURL={genreUrl} />
-        <Row rowID="2" title="You love Brad Pitt" fetchURL={castUrl} />
+        <div
+          id={"slider" + 1}
+          className="w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative"
+        >
+          {list?.map((movie) => (
+            <Row
+              key={movie.id}
+              rowID={movie.id}
+              title={castTitle + movie?.title}
+              fetchURL={castUrl + movie?.actor}
+            />
+          ))}
+        </div>
+        <div
+          id={"slider" + 2}
+          className="w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative"
+        >
+          {list?.map((movie) => (
+            <Row
+              key={movie.id}
+              rowID={movie.id}
+              title={genreTitle + movie?.title}
+              fetchURL={genreUrl + movie?.genre}
+            />
+          ))}
+        </div>
       </div>
     </>
   );

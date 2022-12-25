@@ -51,7 +51,7 @@ const UnlikedShows = () => {
           id={"slider"}
           className="w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative"
         >
-          {dislikedList.map((item, id) => (
+          {dislikedList?.map((item, id) => (
             <div
               key={id}
               className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2"

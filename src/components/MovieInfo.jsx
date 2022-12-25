@@ -192,8 +192,6 @@ const MovieInfo = (movieID2) => {
     return null;
   }
 
-  console.log(likedList);
-  console.log(liked + "/" + disliked + "/" + later);
   return (
     <div className="max-w-full h-[1000px] text-white">
       <div className="w-full h-full">
