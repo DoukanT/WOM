@@ -13,7 +13,7 @@ const SearchBar = () => {
     
     const [searchbar, setSearchbar] = useState(0);
     const handletab=(e)=>{
-    setSearchbar(e);
+      setSearchbar(e);
   }
   return (
     <div className="flex items-center space-x-4 text-sm font-light ">
