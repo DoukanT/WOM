@@ -18,7 +18,12 @@ const Search = () => {
   const [maxTimeValue, setmaxTimeValue] = React.useState("");
   const [minScoreValue, setminScoreValue] = React.useState("");
   const [maxScoreValue, setmaxScoreValue] = React.useState("");
-  const [isOk, setIsOk] = React.useState(1);
+  const [isYOk, setIsYOk] = React.useState(1);
+  const [isY2Ok, setIsY2Ok] = React.useState(1);
+  const [isTOk, setIsTOk] = React.useState(1);
+  const [isT2Ok, setIsT2Ok] = React.useState(1);
+  const [isSOk, setIsSOk] = React.useState(1);
+  const [isS2Ok, setIsS2Ok] = React.useState(1);
   const navigate = useNavigate();
   
   
@@ -84,7 +89,8 @@ useEffect(() => {
   const submitButton = (event) => {
     event.preventDefault();
 
-    if( isOk == 1 ) {
+
+    if( isYOk == 1 && isY2Ok == 1 && isTOk == 1 && isT2Ok == 1 && isSOk == 1 && isS2Ok == 1 ) {
       if(minTimeValue.length>0){
       searchUrl = searchUrl+'&with_runtime.gte='+minTimeValue
       }
@@ -116,57 +122,55 @@ useEffect(() => {
         })
       }
       navigate("/AdvancedSearchResults", { state: { url: searchUrl, pageNumber: pageNumber } })
-    }
+    } 
     
   }
 
   const onChangeYear = event => {
     setminYearValue(event.target.value);
-    setIsOk(0);
+    setIsYOk(0);
     if(event.target.value >= 1900 && event.target.value <= 2022){
-      setIsOk(1);
+      setIsYOk(1);
     }
   };
   const onChangeYear2 = event => {
     setmaxYearValue(event.target.value);
-    setIsOk(0);
+    setIsY2Ok(0);
     if(event.target.value >= 1900 && event.target.value <= 2022){
-      setIsOk(1);
+      setIsY2Ok(1);
     }  
   };
 
   const onChangeTime = event => {
     setminTimeValue(event.target.value);
-    setIsOk(0);
+    setIsTOk(0);
     if(event.target.value >= 1){
-      setIsOk(1);
+      setIsTOk(1);
     } 
   };
   const onChangeTime2 = event => {
     setmaxTimeValue(event.target.value);
-    setIsOk(0);
+    setIsT2Ok(0);
     if(event.target.value >= 1){
-      setIsOk(1);
+      setIsT2Ok(1);
     }   
   };
 
   const onChangeScore = event => {
     setminScoreValue(event.target.value);
-    setIsOk(0);
+    setIsSOk(0);
     if(event.target.value >= 0 && event.target.value <= 10){
-      setIsOk(1);
+      setIsSOk(1);
     } 
   };
   const onChangeScore2 = event => {
     setmaxScoreValue(event.target.value);  
-    setIsOk(0);
+    setIsS2Ok(0);
     if(event.target.value >= 0 && event.target.value <= 10){
-      setIsOk(1);
+      setIsS2Ok(1);
     } 
   };
 
-  console.log(isOk)
-  console.log(minYearValue)
   return (
     <div className='pt-[130px] pb-10 w-full h-full'>
       <div className='sm:mx-[20px] md:mx-[90px] lg:mx-[180px] xl:mx-[310px]' style={{boxShadow: "rgba(240, 46, 170, 0.17) 0px 23px 25px 0px inset, rgba(240, 46, 170, 0.15) 0px 36px 30px 0px inset, rgba(240, 46, 170, 0.1) 0px 79px 40px 0px inset, rgba(240, 46, 170, 0.17) 0px -23px 25px 0px inset, rgba(240, 46, 170, 0.15) 0px -36px 30px 0px inset, rgba(240, 46, 170, 0.1) 0px -79px 40px 0px inset"}}>
@@ -259,7 +263,7 @@ useEffect(() => {
             />
           </div>
           </div>
-          <button onClick={submitButton} disabled={isOk === 0 ? true : false} className='bg-pink-500 px-[50px] py-[15px] mt-[50px] mb-[15px] rounded font-bold text-black hover:text-white hover:bg-pink-800'>
+          <button onClick={submitButton} disabled={ (isYOk == 1 && isY2Ok == 1 && isTOk == 1 && isT2Ok == 1 && isSOk == 1 && isS2Ok == 1)  ? false : true} className='bg-pink-500 px-[50px] py-[15px] mt-[50px] mb-[15px] rounded font-bold text-black hover:text-white hover:bg-pink-800'>
             Submit
           </button>
         
