@@ -136,7 +136,7 @@ useEffect(() => {
   const onChangeScore2 = event => {
     setmaxScoreValue(event.target.value);  
   };
- 
+
   return (
     <div className='pt-[130px] pb-10 w-full h-full'>
       <div className='sm:mx-[20px] md:mx-[90px] lg:mx-[180px] xl:mx-[310px]' style={{boxShadow: "rgba(240, 46, 170, 0.17) 0px 23px 25px 0px inset, rgba(240, 46, 170, 0.15) 0px 36px 30px 0px inset, rgba(240, 46, 170, 0.1) 0px 79px 40px 0px inset, rgba(240, 46, 170, 0.17) 0px -23px 25px 0px inset, rgba(240, 46, 170, 0.15) 0px -36px 30px 0px inset, rgba(240, 46, 170, 0.1) 0px -79px 40px 0px inset"}}>
@@ -163,7 +163,7 @@ useEffect(() => {
           <h1 className='text-white font-medium text-base pt-6'>Release Year</h1>
           <div className='flex flex-row items-center justify-items-center pt-2 gap-3'>
             <input
-             className="text-gray-700 w-[100px] h-[40px] border border-pink-500 p-2 rounded "
+              className="text-gray-700 w-[100px] h-[40px] border border-pink-500 p-2 rounded "
               type="text"
               name="name"
               onChange={onChangeYear}
