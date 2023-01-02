@@ -6,13 +6,13 @@ import { updateDoc, doc, onSnapshot } from "firebase/firestore";
 import { AiOutlineClose } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
-const SavedShows = () => {
-  const [likedList, setlikedList] = useState([]);
+const UnlikedShows = () => {
+  const [dislikedList, setdislikedList] = useState([]);
   const { user } = UserAuth();
   const navigate = useNavigate();
   useEffect(() => {
     onSnapshot(doc(db, "users", `${user?.email}`), (doc) => {
-      setlikedList(doc.data()?.savedShows);
+      setdislikedList(doc.data()?.unlikedShows);
     });
   }, [user?.email]);
 
@@ -26,22 +26,20 @@ const SavedShows = () => {
   };
 
   const userID = doc(db, "users", `${user?.email}`);
-  const unlikeMovie = async (passedID) => {
-    localStorage.setItem(`likeState_${passedID}`, false);
+  const undislikeMovie = async (passedID) => {
+    localStorage.setItem(`unlikeState_${passedID}`, false);
     try {
-      const result = likedList.filter((movie) => movie.id !== passedID);
-      console.log(likedList);
+      const result = dislikedList.filter((movie) => movie.id !== passedID);
       await updateDoc(userID, {
-        savedShows: result,
+        unlikedShows: result,
       });
     } catch (error) {
       console.log(error);
     }
   };
-
   return (
     <>
-      <h2 className="text-white font-bold md:text-xl p-4">Like</h2>
+      <h2 className="text-white font-bold md:text-xl p-4">Dislike</h2>
       <div className="relative flex items-center group">
         <MdChevronLeft
           onClick={slideLeft}
@@ -53,7 +51,7 @@ const SavedShows = () => {
           id={"slider"}
           className="w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative"
         >
-          {likedList?.map((item, id) => (
+          {dislikedList?.map((item, id) => (
             <div
               key={id}
               className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2"
@@ -73,7 +71,7 @@ const SavedShows = () => {
                   {item?.title}
                 </p>
                 <p
-                  onClick={() => unlikeMovie(item.id)}
+                  onClick={() => undislikeMovie(item.id)}
                   className="absolute text-gray-300 top-4 right-4"
                 >
                   <AiOutlineClose />
@@ -82,6 +80,7 @@ const SavedShows = () => {
             </div>
           ))}
         </div>
+
         <MdChevronRight
           onClick={slideRight}
           className="bg-white right-0 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block"
@@ -92,4 +91,4 @@ const SavedShows = () => {
   );
 };
 
-export default SavedShows;
+export default UnlikedShows;

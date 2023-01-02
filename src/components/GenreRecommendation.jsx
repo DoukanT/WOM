@@ -1,16 +1,19 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Movie from './Movie';
+import requests from '../Requests';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
-const Row = ({ title, fetchURL, rowID }) => {
-  const [movies, setMovies] = useState([]);
-
-  useEffect(() => {
-    axios.get(fetchURL).then((response) => {
-      setMovies(response.data.results);
-    });
-  }, [fetchURL]);
+const GenreRecommendation = ({ title, rowID }) => {
+    var searchUrl='https://api.themoviedb.org/3/discover/movie?api_key='+requests.key+'&sort_by=popularity.desc&include_adult=false&page=1&with_genres=36'
+    const [movies, setMovies] = useState([]);
+  
+    useEffect(() => {
+      axios.get(searchUrl).then((response) => {
+        setMovies(response.data.results);
+      });
+    }, [searchUrl]);
+    console.log(movies)
 
   const slideLeft = () => {
     var slider = document.getElementById('slider' + rowID);
@@ -20,6 +23,7 @@ const Row = ({ title, fetchURL, rowID }) => {
     var slider = document.getElementById('slider' + rowID);
     slider.scrollLeft = slider.scrollLeft + 500;
   };
+
   return (
     <>
       <h2 className='text-white font-bold md:text-xl p-4'>{title}</h2>
@@ -47,4 +51,4 @@ const Row = ({ title, fetchURL, rowID }) => {
   );
 };
 
-export default Row;
+export default GenreRecommendation;

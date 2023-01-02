@@ -1,38 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { UserAuth } from "../context/AuthContext";
 import { db } from "../firebase";
 import { updateDoc, doc, onSnapshot } from "firebase/firestore";
 import { AiOutlineClose } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-
-const SavedShows = () => {
-  const [likedList, setlikedList] = useState([]);
+//tamamlandı
+const WatchedLater = () => {
+  const [laterList, setlaterList] = useState([]);
   const { user } = UserAuth();
   const navigate = useNavigate();
   useEffect(() => {
     onSnapshot(doc(db, "users", `${user?.email}`), (doc) => {
-      setlikedList(doc.data()?.savedShows);
+      setlaterList(doc.data()?.watchedLater);
     });
   }, [user?.email]);
-
-  const slideLeft = () => {
-    var slider = document.getElementById("slider");
-    slider.scrollLeft = slider.scrollLeft - 500;
-  };
-  const slideRight = () => {
-    var slider = document.getElementById("slider");
-    slider.scrollLeft = slider.scrollLeft + 500;
-  };
-
   const userID = doc(db, "users", `${user?.email}`);
-  const unlikeMovie = async (passedID) => {
-    localStorage.setItem(`likeState_${passedID}`, false);
+
+  const unlaterMovie = async (passedID) => {
+    localStorage.setItem(`laterState_${passedID}`, false);
     try {
-      const result = likedList.filter((movie) => movie.id !== passedID);
-      console.log(likedList);
+      const result = laterList.filter((movie) => movie.id !== passedID);
       await updateDoc(userID, {
-        savedShows: result,
+        watchedLater: result,
       });
     } catch (error) {
       console.log(error);
@@ -41,19 +30,10 @@ const SavedShows = () => {
 
   return (
     <>
-      <h2 className="text-white font-bold md:text-xl p-4">Like</h2>
+      <h2 className="text-white font-bold text-3xl p-6">Watch Later</h2>
       <div className="relative flex items-center group">
-        <MdChevronLeft
-          onClick={slideLeft}
-          className="bg-white left-0 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block"
-          size={40}
-        />
-
-        <div
-          id={"slider"}
-          className="w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative"
-        >
-          {likedList?.map((item, id) => (
+        <div>
+          {laterList?.map((item, id) => (
             <div
               key={id}
               className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2"
@@ -73,7 +53,7 @@ const SavedShows = () => {
                   {item?.title}
                 </p>
                 <p
-                  onClick={() => unlikeMovie(item.id)}
+                  onClick={() => unlaterMovie(item.id)}
                   className="absolute text-gray-300 top-4 right-4"
                 >
                   <AiOutlineClose />
@@ -82,14 +62,9 @@ const SavedShows = () => {
             </div>
           ))}
         </div>
-        <MdChevronRight
-          onClick={slideRight}
-          className="bg-white right-0 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block"
-          size={40}
-        />
       </div>
     </>
   );
 };
 
-export default SavedShows;
+export default WatchedLater;
